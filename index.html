@@ -39,6 +39,30 @@
             margin: 0 auto;
         }
 
+        /* Logo Styles */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .logo-container img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
         .header {
             text-align: center;
             color: white;
@@ -295,6 +319,11 @@
         }
 
         @media (max-width: 768px) {
+            .logo-container img {
+                width: 150px;
+                height: 150px;
+            }
+
             .header h1 {
                 font-size: 2rem;
             }
@@ -315,6 +344,11 @@
 </head>
 <body>
     <div class="container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/125824667/8356b0f3-852a-43a9-ad1f-0afc79035613/1000002510.jpeg" alt="Alpha Pandit Ji Logo">
+        </div>
+
         <!-- Header -->
         <div class="header">
             <h1>🕉️ Alpha Pandit Ji</h1>
@@ -327,13 +361,13 @@
             <!-- Basic Plan -->
             <div class="plan-card">
                 <div class="plan-name">Basic Plan</div>
-                <div class="plan-price">₹199 <span>/7 Days</span></div>
-                <div class="plan-duration">Weekly Access</div>
+                <div class="plan-price">₹199 <span>/Month</span></div>
+                <div class="plan-duration">Monthly Access</div>
                 <div class="features">
                     <div class="feature">Public Telegram Access</div>
                     <div class="feature">Basic Content Updates</div>
                     <div class="feature">Community Support</div>
-                    <div class="feature">7 Days Validity</div>
+                    <div class="feature">30 Days Validity</div>
                 </div>
                 <button class="cta-button" onclick="openPaymentForm('basic')">Pay Now ₹199</button>
             </div>
@@ -342,8 +376,8 @@
             <div class="plan-card">
                 <div class="popular-badge">POPULAR</div>
                 <div class="plan-name">Premium Plan</div>
-                <div class="plan-price">₹999 <span>/Month</span></div>
-                <div class="plan-duration">1 Month Access</div>
+                <div class="plan-price">₹499 <span>/Month</span></div>
+                <div class="plan-duration">Monthly Access</div>
                 <div class="features">
                     <div class="feature">Premium Telegram Channel</div>
                     <div class="feature">Exclusive Content Daily</div>
@@ -351,23 +385,23 @@
                     <div class="feature">WhatsApp Updates</div>
                     <div class="feature">30 Days Validity</div>
                 </div>
-                <button class="cta-button" onclick="openPaymentForm('premium')">Pay Now ₹999</button>
+                <button class="cta-button" onclick="openPaymentForm('premium')">Pay Now ₹499</button>
             </div>
 
             <!-- Premium Plus Plan -->
             <div class="plan-card">
                 <div class="plan-name">Premium Plus</div>
-                <div class="plan-price">₹9,999 <span>/Year</span></div>
-                <div class="plan-duration">1 Year Access</div>
+                <div class="plan-price">₹999 <span>/Month</span></div>
+                <div class="plan-duration">Monthly Access</div>
                 <div class="features">
                     <div class="feature">All Premium Features</div>
                     <div class="feature">Personal Guidance</div>
                     <div class="feature">1-on-1 Consultation</div>
                     <div class="feature">Exclusive VIP Content</div>
-                    <div class="feature">365 Days Validity</div>
+                    <div class="feature">30 Days Validity</div>
                     <div class="feature">Lifetime Community Access</div>
                 </div>
-                <button class="cta-button" onclick="openPaymentForm('premium-plus')">Pay Now ₹9,999</button>
+                <button class="cta-button" onclick="openPaymentForm('premium-plus')">Pay Now ₹999</button>
             </div>
         </div>
 
