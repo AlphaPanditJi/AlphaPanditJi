@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alpha Pandit Ji - Premium Subscription Plans</title>
+    <title>Alpha Pandit Ji - Premium Spiritual Content & Guidance</title>
     <style>
         * {
             margin: 0;
@@ -12,206 +12,379 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #0f0f0f;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .logo-section {
+            justify-content: center;
             text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInDown 1s ease;
-        }
-
-        .logo-section img {
-            max-width: 200px;
-            height: auto;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
-        }
-
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 50px;
-            animation: fadeInDown 1s ease;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .plans-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .plan-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeInUp 1s ease;
+            padding: 40px 20px;
             position: relative;
             overflow: hidden;
         }
 
-        .plan-card::before {
+        .hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,197.3C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom center no-repeat;
+            background-size: cover;
+            animation: wave 10s linear infinite;
         }
 
-        .plan-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        .plan-card.premium {
-            border: 3px solid #ffd700;
-            transform: scale(1.05);
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
         }
 
-        .plan-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+        .logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid rgba(255,255,255,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 1s ease;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button {
             display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: #1a1a1a;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            font-weight: 700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: #252525;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
             margin-bottom: 20px;
         }
 
-        .plan-card h2 {
-            font-size: 1.8rem;
-            color: #333;
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .feature-card p {
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 20px;
+            background: #0f0f0f;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .price-card {
+            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+            border-radius: 25px;
+            padding: 50px 35px;
+            text-align: center;
+            position: relative;
+            border: 2px solid #333;
+            transition: all 0.4s ease;
+        }
+
+        .price-card:hover {
+            transform: translateY(-15px);
+            border-color: #667eea;
+            box-shadow: 0 25px 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .price-card.featured {
+            border-color: #FFD700;
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .price-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .price-card.featured .price-badge {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000;
+        }
+
+        .price-card h3 {
+            font-size: 2rem;
             margin-bottom: 15px;
         }
 
-        .plan-price {
-            font-size: 3rem;
-            font-weight: bold;
+        .price {
+            font-size: 3.5rem;
+            font-weight: 800;
             color: #667eea;
             margin-bottom: 10px;
         }
 
-        .plan-price span {
-            font-size: 1.2rem;
-            color: #666;
+        .price-card.featured .price {
+            color: #FFD700;
         }
 
-        .plan-features {
+        .price span {
+            font-size: 1.2rem;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .price-features {
             list-style: none;
-            margin: 30px 0;
+            margin: 40px 0;
             text-align: left;
         }
 
-        .plan-features li {
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-            color: #555;
-            position: relative;
-            padding-left: 30px;
+        .price-features li {
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+            color: #ccc;
+            display: flex;
+            align-items: center;
         }
 
-        .plan-features li:before {
+        .price-features li::before {
             content: '✓';
-            position: absolute;
-            left: 0;
-            color: #667eea;
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 15px;
             font-weight: bold;
-            font-size: 1.2rem;
+            flex-shrink: 0;
         }
 
-        .pay-button {
+        .buy-button {
+            display: block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
+            padding: 18px 40px;
             border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 20px;
             text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            font-weight: 700;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
-        .pay-button:hover {
+        .buy-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
         }
 
-        .google-form-link {
-            background: linear-gradient(135deg, #34a853 0%, #0f9d58 100%);
-            color: white;
-            border: 2px solid transparent;
-            padding: 12px 30px;
-            font-size: 0.95rem;
+        .price-card.featured .buy-button {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000;
+        }
+
+        .alt-button {
+            display: block;
+            background: transparent;
+            color: #667eea;
+            padding: 15px 35px;
+            border: 2px solid #667eea;
             border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 10px;
             text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            font-weight: 500;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
         }
 
-        .google-form-link:hover {
-            background: white;
-            color: #34a853;
-            border: 2px solid #34a853;
-        }
-
-        .footer {
-            text-align: center;
+        .alt-button:hover {
+            background: #667eea;
             color: white;
-            margin-top: 40px;
-            opacity: 0.8;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 100px 20px;
+            background: #1a1a1a;
+        }
+
+        .faq-item {
+            background: #252525;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #2a2a2a;
+        }
+
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: #aaa;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 30px 25px 30px;
+            max-height: 500px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 20px;
+            background: #0f0f0f;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 30px;
+            line-height: 1.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .footer p {
+            color: #666;
+            margin-bottom: 10px;
         }
 
         .footer a {
-            color: white;
-            text-decoration: underline;
+            color: #667eea;
+            text-decoration: none;
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes fadeInUp {
@@ -225,94 +398,220 @@
             }
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .plan-price {
+            .hero h1 {
                 font-size: 2.5rem;
             }
-
-            .plans-container {
+            .section-title {
+                font-size: 2rem;
+            }
+            .price {
+                font-size: 2.5rem;
+            }
+            .pricing-grid {
                 grid-template-columns: 1fr;
             }
-
-            .plan-card.premium {
+            .price-card.featured {
                 transform: scale(1);
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Logo Section -->
-        <div class="logo-section">
-            <img src="https://raw.githubusercontent.com/alphapanditji/AlphaPanditJi/refs/heads/main/Logo.jpeg" alt="Alpha Pandit Ji Logo">
-        </div>
-
-        <!-- Header -->
-        <div class="header">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo">
+                <img src="https://raw.githubusercontent.com/alphapanditji/AlphaPanditJi/refs/heads/main/Logo.jpeg" alt="Alpha Pandit Ji">
+            </div>
             <h1>Alpha Pandit Ji</h1>
-            <p>Premium Subscription Plans</p>
+            <p>Premium Spiritual Content, Guidance & Exclusive Community Access</p>
+            <a href="#pricing" class="cta-button">Choose Your Plan</a>
         </div>
+    </section>
 
-        <!-- Plans Container -->
-        <div class="plans-container">
-            <!-- Basic Plan -->
-            <div class="plan-card">
-                <span class="plan-badge">Basic Plan</span>
-                <h2>Basic Plan</h2>
-                <div class="plan-price">₹199<span>/month</span></div>
-                <ul class="plan-features">
-                    <li>Premium Telegram Channel Access</li>
-                    <li>Daily Spiritual Content</li>
-                    <li>Community Support</li>
-                    <li>30 Days Validity</li>
-                </ul>
-                <a href="https://imjo.in/v8sXQG" class="pay-button" target="_blank" rel="noopener noreferrer">Buy Now - Pay Securely</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeVvdRglA4GkbcdAKs3l3TY5l8Ct1RrYoF77IaUaNrvdlN5nA/viewform" class="google-form-link" target="_blank" rel="noopener noreferrer">Alternative: Google Form</a>
-            </div>
-
-            <!-- Premium Plan -->
-            <div class="plan-card premium">
-                <span class="plan-badge">⭐ Premium Plan</span>
-                <h2>Premium Plan</h2>
-                <div class="plan-price">₹499<span>/month</span></div>
-                <ul class="plan-features">
-                    <li>All Basic Features</li>
-                    <li>WhatsApp Group Access</li>
-                    <li>Priority Support</li>
-                    <li>Exclusive Spiritual Content</li>
-                    <li>30 Days Validity</li>
-                </ul>
-                <a href="https://imjo.in/mKZYp9" class="pay-button" target="_blank" rel="noopener noreferrer">Buy Now - Pay Securely</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeVvdRglA4GkbcdAKs3l3TY5l8Ct1RrYoF77IaUaNrvdlN5nA/viewform" class="google-form-link" target="_blank" rel="noopener noreferrer">Alternative: Google Form</a>
-            </div>
-
-            <!-- Premium Plus Plan -->
-            <div class="plan-card">
-                <span class="plan-badge">💎 Premium Plus</span>
-                <h2>Premium Plus</h2>
-                <div class="plan-price">₹999<span>/month</span></div>
-                <ul class="plan-features">
-                    <li>All Premium Features</li>
-                    <li>Personal Guidance</li>
-                    <li>1-on-1 Consultation</li>
-                    <li>VIP Content Access</li>
-                    <li>Lifetime Community Access</li>
-                    <li>30 Days Validity</li>
-                </ul>
-                <a href="https://imjo.in/g9YxyK" class="pay-button" target="_blank" rel="noopener noreferrer">Buy Now - Pay Securely</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeVvdRglA4GkbcdAKs3l3TY5l8Ct1RrYoF77IaUaNrvdlN5nA/viewform" class="google-form-link" target="_blank" rel="noopener noreferrer">Alternative: Google Form</a>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">What You'll Get</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Premium Telegram Access</h3>
+                    <p>Join our exclusive Telegram channel with daily spiritual content and insights</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>WhatsApp Community</h3>
+                    <p>Connect with like-minded individuals in our private WhatsApp groups</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Personal Guidance</h3>
+                    <p>Get personalized spiritual guidance and support from Alpha Pandit Ji</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Exclusive Content</h3>
+                    <p>Access premium spiritual teachings, rituals, and educational material</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Priority Support</h3>
+                    <p>Get your questions answered quickly with priority customer support</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Lifetime Access</h3>
+                    <p>Once a member, always a member - join our growing community forever</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Footer -->
-        <div class="footer">
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Choose Your Plan</h2>
+            <div class="pricing-grid">
+                <!-- Basic Plan -->
+                <div class="price-card">
+                    <span class="price-badge">BASIC</span>
+                    <h3>Basic Plan</h3>
+                    <div class="price">₹199<span>/month</span></div>
+                    <ul class="price-features">
+                        <li>Premium Telegram Channel Access</li>
+                        <li>Daily Spiritual Content</li>
+                        <li>Community Support</li>
+                        <li>30 Days Validity</li>
+                    </ul>
+                    <a href="https://imjo.in/v8sXQG" class="buy-button" target="_blank">Buy Now</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform" class="alt-button" target="_blank">Alternative Form</a>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="price-card featured">
+                    <span class="price-badge">⭐ MOST POPULAR</span>
+                    <h3>Premium Plan</h3>
+                    <div class="price">₹499<span>/month</span></div>
+                    <ul class="price-features">
+                        <li>All Basic Features</li>
+                        <li>WhatsApp Group Access</li>
+                        <li>Priority Support</li>
+                        <li>Exclusive Spiritual Content</li>
+                        <li>30 Days Validity</li>
+                    </ul>
+                    <a href="https://imjo.in/mKZYp9" class="buy-button" target="_blank">Buy Now</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform" class="alt-button" target="_blank">Alternative Form</a>
+                </div>
+
+                <!-- Premium Plus Plan -->
+                <div class="price-card">
+                    <span class="price-badge">💎 VIP</span>
+                    <h3>Premium Plus</h3>
+                    <div class="price">₹999<span>/month</span></div>
+                    <ul class="price-features">
+                        <li>All Premium Features</li>
+                        <li>Personal Guidance</li>
+                        <li>1-on-1 Consultation</li>
+                        <li>VIP Content Access</li>
+                        <li>Lifetime Community Access</li>
+                        <li>30 Days Validity</li>
+                    </ul>
+                    <a href="https://imjo.in/g9YxyK" class="buy-button" target="_blank">Buy Now</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform" class="alt-button" target="_blank">Alternative Form</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What payment methods do you accept?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    We accept all major payment methods through Instamojo including UPI, Credit/Debit Cards, Net Banking, and Wallets. All transactions are 100% secure.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How do I get access after payment?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    After successful payment, you'll receive an email with your Telegram/WhatsApp group links within 24 hours. Check your registered email and follow the instructions.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Can I upgrade my plan later?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! You can upgrade to a higher plan anytime. Simply contact our support team and they'll help you with the upgrade process.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Is there a refund policy?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    We offer a 7-day money-back guarantee. If you're not satisfied with the content, contact us within 7 days for a full refund.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="about-content">
+            <h2 class="section-title">About Alpha Pandit Ji</h2>
+            <p>With years of experience in spiritual guidance and content creation, Alpha Pandit Ji has helped thousands of followers on their spiritual journey.</p>
+            <p>Our mission is to provide authentic spiritual knowledge, practical guidance, and a supportive community for seekers on their path to enlightenment.</p>
+            <p>Join our growing family of satisfied members who have transformed their lives through our premium content and personalized guidance.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
             <p>&copy; 2025 Alpha Pandit Ji | All Rights Reserved</p>
-            <p>Secure Payment powered by <a href="https://www.instamojo.com" target="_blank">Instamojo</a></p>
+            <p>Secure payments powered by <a href="https://www.instamojo.com" target="_blank">Instamojo</a></p>
         </div>
-    </div>
+    </footer>
+
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+                item.querySelector('.faq-question span').textContent = '+';
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+                element.querySelector('span').textContent = '-';
+            }
+        }
+
+        // Smooth scroll for CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#pricing').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </body>
 </html>
