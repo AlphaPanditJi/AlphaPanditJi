@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Alpha Pandit Ji - Premium Spiritual Content & Exclusive Services</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', sans-serif;
             background: #f5f5f5;
@@ -52,588 +47,192 @@
             animation: shine 3s infinite;
         }
 
-        .notice-banner .notice-content {
-            position: relative;
-            z-index: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        .notice-banner .notice-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
         .notice-banner h3 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            color: #fff;
-            font-weight: 800;
+            font-size: 1.1rem; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; color: #fff; font-weight: 800;
         }
-
-        .notice-banner p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .notice-banner strong {
-            color: #ffeb3b;
-            font-weight: 900;
-            text-decoration: underline;
-        }
+        .notice-banner p { font-size: 0.95rem; line-height: 1.6; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .notice-banner strong { color: #ffeb3b; font-weight: 900; text-decoration: underline; }
 
         /* Header with Logo and Search */
         .header {
-            background: #ffffff;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 999;
+            background: #ffffff; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky; top: 0; z-index: 999;
         }
-
         .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 30px;
+            max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px;
         }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .logo { width: 70px; height: 70px; border-radius: 50%; overflow: hidden; border: 3px solid #667eea; box-shadow: 0 4px 15px rgba(102,126,234,0.3); flex-shrink: 0; }
+        .logo img { width: 100%; height: 100%; object-fit: cover; }
+        .brand-info h1 { font-size: 1.5rem; font-weight: 800; color: #1a1a1a; margin-bottom: 5px; }
+        .brand-info p { font-size: 0.85rem; color: #666; }
 
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        /* Top Controls (Sign/Login, Search, Settings) */
+        .top-controls {
+            display: flex; align-items: center; gap: 15px; width: 100%;
         }
-
-        .logo {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid #667eea;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-            flex-shrink: 0;
+        .search-box { flex: 1; max-width: 560px; position: relative; }
+        .search-box input {
+            width: 100%; padding: 12px 50px 12px 20px; border: 2px solid #e0e0e0; border-radius: 50px; font-size: 1rem; transition: all 0.3s ease; outline: none;
         }
-
-        .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .search-box input:focus { border-color: #667eea; box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1); }
+        .search-box button.search-btn {
+            position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;
         }
+        .search-box button.search-btn:hover { transform: translateY(-50%) scale(1.05); }
+        .search-box button.search-btn svg { width: 20px; height: 20px; fill: white; }
 
-        .brand-info h1 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #1a1a1a;
-            margin-bottom: 5px;
+        .search-results {
+            position: absolute; top: 100%; left: 0; right: 0; background: white; border: 2px solid #e0e0e0; border-radius: 15px; margin-top: 10px; max-height: 400px; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; z-index: 1000;
         }
+        .search-results.active { display: block; }
+        .search-result-item { padding: 15px 20px; border-bottom: 1px solid #f0f0f0; cursor: pointer; transition: background 0.3s ease; }
+        .search-result-item:hover { background: #f9f9f9; }
+        .result-title { font-weight: 600; color: #1a1a1a; margin-bottom: 5px; }
+        .result-price { color: #667eea; font-weight: 700; }
+        .result-badge { display: inline-block; background: #667eea; color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; margin-left: 10px; }
 
-        .brand-info p {
-            font-size: 0.85rem;
-            color: #666;
+        /* Top small buttons */
+        .top-buttons {
+            display: flex; align-items: center; gap: 10px;
         }
+        .btn {
+            padding: 9px 16px; font-size: 0.95rem; font-weight: 700; border-radius: 999px; cursor: pointer; border: none;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-login { background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); color: #fff; box-shadow: 0 6px 18px rgba(102,126,234,0.18); }
+        .btn-login:hover { transform: translateY(-2px); }
+        .btn-settings {
+            background: #fff; color: #667eea; border: 2px solid #e6e6e6; padding: 8px 12px; border-radius: 12px;
+        }
+        .btn-settings:hover { background:#f6f8ff; }
 
-        /* Search Box */
-        .search-box {
-            flex: 1;
-            max-width: 500px;
+        /* Settings dropdown */
+        .settings-dropdown {
+            position: absolute; right: 0; margin-top: 8px; background: #fff; border: 1px solid #e6e6e6; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; display: none; min-width: 220px; z-index: 2000;
+        }
+        .settings-dropdown.show { display: block; }
+        .settings-item { padding: 12px 14px; cursor: pointer; border-bottom: 1px solid #f0f0f0; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+        .settings-item:last-child { border-bottom: none; }
+        .lang-list { display: flex; gap: 8px; flex-wrap:wrap; margin-top:8px; }
+        .lang-btn { padding:6px 10px; border-radius:8px; border:1px solid #e6e6e6; background:#fff; cursor:pointer; font-size:0.9rem; }
+
+        /* Locked state for buy/alt buttons when not logged in */
+        .locked {
+            pointer-events: none;
+            opacity: 0.6;
             position: relative;
         }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 50px 12px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 50px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        .search-box input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-        }
-
-        .search-box button {
+        .locked::after {
+            content: 'Sign Up to use';
             position: absolute;
-            right: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 6px;
+            white-space: nowrap;
         }
 
-        .search-box button:hover {
-            transform: translateY(-50%) scale(1.1);
+        /* Review button at bottom */
+        .review-area {
+            margin: 40px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:12px;
+        }
+        .btn-review {
+            background: #fff; color: #667eea; border: 2px solid #667eea; padding: 10px 16px; border-radius: 12px; cursor:pointer; font-weight:700;
+        }
+        .btn-review:hover { background: #667eea; color:#fff; transform: translateY(-2px); }
+
+        .star-display {
+            font-size: 1.2rem;
+            color: #ffd700;
+            display:flex;
+            align-items:center;
+            gap:2px;
+            user-select:none;
         }
 
-        .search-box button svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
+        /* Modal */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 10000;
         }
+        .modal-overlay.show { display: flex; }
+        .modal-content { width: 94%; max-width: 720px; background: #fff; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .modal-close { position: absolute; top: 10px; right: 14px; font-size: 22px; cursor: pointer; color: #333; z-index: 2; }
+        .modal-body { padding: 16px; max-height: 80vh; overflow:auto; }
+        .modal-iframe { width: 100%; height: 70vh; border: none; display: block; }
 
-        /* Search Results Dropdown */
-        .search-results {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            margin-top: 10px;
-            max-height: 400px;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: none;
-            z-index: 1000;
-        }
-
-        .search-results.active {
-            display: block;
-        }
-
-        .search-result-item {
-            padding: 15px 20px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .search-result-item:hover {
-            background: #f9f9f9;
-        }
-
-        .search-result-item:last-child {
-            border-bottom: none;
-        }
-
-        .result-title {
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 5px;
-        }
-
-        .result-price {
-            color: #667eea;
-            font-weight: 700;
-        }
-
-        .result-badge {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            margin-left: 10px;
-        }
+        /* Review form inside modal */
+        .review-form textarea { width: 100%; min-height: 120px; padding: 12px; border: 1px solid #e6e6e6; border-radius: 8px; resize: vertical; }
+        .review-actions { margin-top: 10px; display:flex; gap:10px; justify-content:flex-end; }
+        .btn-primary { background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:#fff; padding:10px 14px; border-radius:8px; border:none; cursor:pointer; font-weight:700; }
+        .btn-secondary { background:#fff; border:1px solid #e6e6e6; padding:10px 14px; border-radius:8px; cursor:pointer; }
 
         /* Stats Section */
-        .stats {
-            padding: 60px 20px;
-            background: #ffffff;
-            position: relative;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 35px;
-            background: linear-gradient(145deg, #f9f9f9, #fff);
-            border-radius: 20px;
-            border: 2px solid #e0e0e0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            color: #666;
-        }
+        .stats { padding: 60px 20px; background: #ffffff; position: relative; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .stat-card { text-align: center; padding: 35px; background: linear-gradient(145deg, #f9f9f9, #fff); border-radius: 20px; border: 2px solid #e0e0e0; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .stat-card:hover { transform: translateY(-10px); box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2); }
+        .stat-number { font-size: 3rem; font-weight: 900; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+        .stat-label { font-size: 1rem; color: #666; }
 
         /* Pricing Section */
-        .pricing {
-            padding: 80px 20px;
-            background: #f5f5f5;
-            position: relative;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            font-weight: 800;
-            color: #1a1a1a;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .price-card {
-            background: #ffffff;
-            border-radius: 25px;
-            padding: 40px 30px;
-            text-align: center;
-            position: relative;
-            border: 2px solid #e0e0e0;
-            transition: all 0.4s ease;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
-
-        .price-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.05), transparent);
-            transition: left 0.6s;
-        }
-
-        .price-card:hover::before {
-            left: 100%;
-        }
-
-        .price-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: #667eea;
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
-        }
-
-        .price-card.featured {
-            border-color: #FFD700;
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.25);
-            transform: scale(1.03);
-        }
-
-        .price-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .price-card.featured .price-badge {
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            color: #000;
-        }
-
-        .price-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            font-weight: 800;
-            color: #1a1a1a;
-        }
-
-        .price {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #667eea;
-            margin-bottom: 10px;
-            line-height: 1;
-        }
-
-        .price-card.featured .price {
-            color: #FFD700;
-        }
-
-        .price span {
-            font-size: 1.1rem;
-            color: #888;
-            font-weight: 400;
-        }
-
-        .price-features {
-            list-style: none;
-            margin: 30px 0;
-            text-align: left;
-        }
-
-        .price-features li {
-            padding: 14px 0;
-            border-bottom: 1px solid #e0e0e0;
-            color: #333;
-            display: flex;
-            align-items: center;
-            font-size: 0.95rem;
-        }
-
-        .price-features li::before {
-            content: '✓';
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            margin-right: 12px;
-            font-weight: 900;
-            flex-shrink: 0;
-            font-size: 0.85rem;
-            color: white;
-        }
-
-        .buy-button {
-            display: block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 16px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            margin-top: 25px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .buy-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .buy-button:hover::before {
-            width: 400px;
-            height: 400px;
-        }
-
-        .buy-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
-        }
-
-        .price-card.featured .buy-button {
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            color: #000;
-        }
-
-        .alt-button {
-            display: block;
-            background: transparent;
-            color: #667eea;
-            padding: 14px 35px;
-            border: 2px solid #667eea;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .alt-button:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-        }
+        .pricing { padding: 80px 20px; background: #f5f5f5; position: relative; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; font-weight: 800; color: #1a1a1a; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; }
+        .price-card { background: #ffffff; border-radius: 25px; padding: 40px 30px; text-align: center; position: relative; border: 2px solid #e0e0e0; transition: all 0.4s ease; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+        .price-card::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(102,126,234,0.05), transparent); transition:left 0.6s; }
+        .price-card:hover::before { left:100%; }
+        .price-card:hover { transform: translateY(-10px) scale(1.02); border-color: #667eea; box-shadow: 0 15px 40px rgba(102,126,234,0.25); }
+        .price-card.featured { border-color: #FFD700; box-shadow: 0 15px 40px rgba(255,215,0,0.25); transform: scale(1.03); }
+        .price-badge { display:inline-block; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:white; padding:8px 20px; border-radius:20px; font-size:0.85rem; font-weight:700; margin-bottom:20px; text-transform:uppercase; letter-spacing:0.5px; }
+        .price-card.featured .price-badge { background: linear-gradient(135deg,#FFD700 0%,#FFA500 100%); color:#000; }
+        .price-card h3 { font-size: 1.8rem; margin-bottom: 15px; font-weight: 800; color: #1a1a1a; }
+        .price { font-size: 3rem; font-weight: 900; color: #667eea; margin-bottom: 10px; line-height: 1; }
+        .price span { font-size: 1.1rem; color: #888; font-weight: 400; }
+        .price-features { list-style:none; margin:30px 0; text-align:left; }
+        .price-features li { padding:14px 0; border-bottom:1px solid #e0e0e0; color:#333; display:flex; align-items:center; font-size:0.95rem; }
+        .price-features li::before { content:'✓'; display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); border-radius:50%; margin-right:12px; font-weight:900; font-size:0.85rem; color:white; flex-shrink:0; }
+        .buy-button { display:block; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:white; padding:16px 40px; border-radius:50px; text-decoration:none; font-weight:700; font-size:1rem; margin-top:25px; transition:all 0.3s ease; box-shadow: 0 10px 30px rgba(102,126,234,0.3); position:relative; overflow:hidden; text-align:center; }
+        .buy-button::before { content:''; position:absolute; top:50%; left:50%; width:0; height:0; border-radius:50%; background:rgba(255,255,255,0.2); transform:translate(-50%,-50%); transition:width 0.6s,height 0.6s; }
+        .buy-button:hover::before { width:400px; height:400px; }
+        .buy-button:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(102,126,234,0.5); }
+        .price-card.featured .buy-button { background: linear-gradient(135deg,#FFD700 0%,#FFA500 100%); color:#000; }
+        .alt-button { display:block; background:transparent; color:#667eea; padding:14px 35px; border:2px solid #667eea; border-radius:50px; text-decoration:none; font-weight:600; font-size:0.95rem; margin-top:15px; transition:all 0.3s ease; text-align:center; }
+        .alt-button:hover { background:#667eea; color:white; transform:translateY(-2px); }
 
         /* Footer */
-        .footer {
-            background: #ffffff;
-            padding: 60px 20px 40px;
-            text-align: center;
-            border-top: 2px solid #e0e0e0;
-        }
+        .footer { background:#ffffff; padding:60px 20px 40px; text-align:center; border-top:2px solid #e0e0e0; }
+        .footer-title { font-size:1.8rem; margin-bottom:30px; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:800; }
+        .social-links { display:flex; justify-content:center; gap:25px; margin-bottom:35px; flex-wrap:wrap; }
+        .social-links a { display:inline-flex; align-items:center; justify-content:center; width:55px; height:55px; background: linear-gradient(145deg,#f9f9f9,#fff); border-radius:50%; color:#667eea; font-size:1.6rem; text-decoration:none; transition:all 0.3s ease; border:2px solid #e0e0e0; position:relative; overflow:hidden; }
+        .social-links a::before { content:''; position:absolute; top:50%; left:50%; width:0; height:0; border-radius:50%; background:#667eea; transform:translate(-50%,-50%); transition:width 0.4s,height 0.4s; }
+        .social-links a:hover::before { width:100%; height:100%; }
+        .social-links a:hover { color:white; transform:translateY(-8px) scale(1.1); box-shadow: 0 10px 30px rgba(102,126,234,0.3); border-color:#667eea; }
+        .social-links a svg { position:relative; z-index:1; }
+        .footer p { color:#666; margin:12px 0; font-size:0.95rem; }
+        .footer a { color:#667eea; text-decoration:none; transition:color 0.3s; }
+        .footer a:hover { color:#764ba2; }
 
-        .footer-title {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
+        @keyframes slideDown { from { opacity:0; transform:translateY(-50px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes shine { 0% { transform:translate(-50%,-50%) rotate(0deg); } 100% { transform:translate(-50%,-50%) rotate(360deg); } }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 35px;
-            flex-wrap: wrap;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(145deg, #f9f9f9, #fff);
-            border-radius: 50%;
-            color: #667eea;
-            font-size: 1.6rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 2px solid #e0e0e0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-links a::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: #667eea;
-            transform: translate(-50%, -50%);
-            transition: width 0.4s, height 0.4s;
-        }
-
-        .social-links a:hover::before {
-            width: 100%;
-            height: 100%;
-        }
-
-        .social-links a:hover {
-            color: white;
-            transform: translateY(-8px) scale(1.1);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            border-color: #667eea;
-        }
-
-        .social-links a svg {
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer p {
-            color: #666;
-            margin: 12px 0;
-            font-size: 0.95rem;
-        }
-
-        .footer a {
-            color: #667eea;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer a:hover {
-            color: #764ba2;
-        }
-
-        /* Animations */
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes shine {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .logo-section {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .brand-info h1 {
-                font-size: 1.3rem;
-            }
-
-            .search-box {
-                max-width: 100%;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .price {
-                font-size: 2.5rem;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .price-card.featured {
-                transform: scale(1);
-            }
-
-            .notice-banner h3 {
-                font-size: 1rem;
-            }
-
-            .notice-banner p {
-                font-size: 0.85rem;
-            }
+            .header-container { flex-direction: column; gap: 14px; align-items:stretch; }
+            .logo-section { flex-direction: row; gap:12px; align-items:center; }
+            .brand-info h1 { font-size: 1.2rem; }
+            .search-box { max-width:100%; }
+            .section-title { font-size:2rem; }
+            .pricing-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -653,30 +252,81 @@
         </div>
     </section>
 
-    <!-- Header with Logo and Search -->
+    <!-- Header with Logo, SignUp/Login, Search, Settings -->
     <header class="header">
         <div class="header-container">
-            <div class="logo-section">
-                <div class="logo">
-                    <img src="https://i.ibb.co/HTmgqXLh/Picsart-25-11-04-05-36-14-228.png" alt="Alpha Pandit Ji">
+            <div style="display:flex; align-items:center; gap:18px;">
+                <div class="logo-section">
+                    <div class="logo">
+                        <img src="https://i.ibb.co/HTmgqXLh/Picsart-25-11-04-05-36-14-228.png" alt="Alpha Pandit Ji">
+                    </div>
+                    <div class="brand-info">
+                        <h1>Alpha Pandit Ji</h1>
+                        <p>Premium Spiritual Content & Exclusive Services</p>
+                    </div>
                 </div>
-                <div class="brand-info">
-                    <h1>Alpha Pandit Ji</h1>
-                    <p>Premium Spiritual Content & Exclusive Services</p>
+
+                <!-- Sign Up / Login Button (near logo) -->
+                <div>
+                    <button id="loginBtnTop" class="btn btn-login">Sign Up / Login</button>
                 </div>
             </div>
-            
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search subscriptions, products, services..." autocomplete="off">
-                <button type="button" onclick="performSearch()">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                    </svg>
-                </button>
-                <div class="search-results" id="searchResults"></div>
+
+            <div class="top-controls">
+                <div style="position:relative; width:100%;">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search subscriptions, products, services..." autocomplete="off">
+                        <button class="search-btn" type="button" onclick="performSearch()" title="Search">
+                            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                        </button>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                </div>
+
+                <!-- Settings -->
+                <div style="position:relative;">
+                    <button id="settingsBtn" class="btn btn-settings" title="Settings">⚙️ Settings</button>
+                    <div id="settingsDropdown" class="settings-dropdown" aria-hidden="true">
+                        <div style="padding:12px 14px; font-weight:800; color:#333;">Settings</div>
+                        <div class="settings-item" style="flex-direction:column; align-items:flex-start;">
+                            <div style="font-weight:700; margin-bottom:8px;">Language</div>
+                            <div class="lang-list" id="langList">
+                                <button class="lang-btn" data-lang="hi">Hindi</button>
+                                <button class="lang-btn" data-lang="en">English</button>
+                                <button class="lang-btn" data-lang="en-IN">English (India)</button>
+                                <button class="lang-btn" data-lang="es">Spanish</button>
+                                <button class="lang-btn" data-lang="fr">French</button>
+                            </div>
+                        </div>
+                        <div class="settings-item" id="logoutItem" style="justify-content:center; background:#fff; cursor:pointer;">
+                            <button id="logoutBtn" class="btn-secondary" style="width:100%;">Logout</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
+
+    <!-- Login Modal (Google Form inside iframe) -->
+    <div id="loginModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-content">
+            <span class="modal-close" id="loginModalClose">&times;</span>
+            <div class="modal-body">
+                <p style="font-weight:800; margin-bottom:8px;">Sign Up / Login — please fill this form</p>
+                <!-- Google Form embedded -->
+                <iframe class="modal-iframe" id="googleFormIframe"
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform?usp=dialog"
+                    title="Google Form"></iframe>
+
+                <!-- Note: cross-origin prevents auto-detecting submission.
+                     Provide a manual confirmation button for user to confirm they submitted the form. -->
+                <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+                    <button id="confirmSubmittedBtn" class="btn btn-primary" style="background:linear-gradient(135deg,#667eea,#764ba2); border:none; color:#fff;">I submitted the form</button>
+                    <button id="closeLoginModal" class="btn btn-secondary" style="border:1px solid #e6e6e6;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Stats Section -->
     <section class="stats">
@@ -777,6 +427,16 @@
         </div>
     </section>
 
+    <!-- Review Area (bottom) -->
+    <div class="review-area">
+        <div class="star-display" aria-hidden="true">
+            <!-- show 3.5 stars visually -->
+            <span>★</span><span>★</span><span>★</span><span>★</span><span style="position:relative; color:#fff; margin-left:-18px;">★</span>
+            <span style="margin-left:8px; color:#333; font-weight:700;">(3.5)</span>
+        </div>
+        <button id="openReviewBtn" class="btn-review">Review</button>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <h3 class="footer-title">Follow Us on Social Media</h3>
@@ -805,8 +465,34 @@
         <p>Made with ❤️ in India</p>
     </footer>
 
+    <!-- Review Modal -->
+    <div id="reviewModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-content">
+            <span class="modal-close" id="reviewModalClose">&times;</span>
+            <div class="modal-body">
+                <h3 style="margin-bottom:8px;">Leave a Review</h3>
+                <div style="margin-bottom:8px;">
+                    <label style="font-weight:700;">Your Rating:</label>
+                    <div id="ratingStars" style="display:flex; gap:6px; margin-top:6px; font-size:1.6rem; color:#ffd700; cursor:pointer;">
+                        <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span>
+                    </div>
+                </div>
+                <div class="review-form">
+                    <textarea id="reviewText" placeholder="Write your review..."></textarea>
+                </div>
+                <div class="review-actions">
+                    <button id="submitReview" class="btn-primary">Submit Review</button>
+                    <button id="cancelReview" class="btn-secondary">Cancel</button>
+                </div>
+                <div id="reviewSavedMsg" style="margin-top:10px; display:none; color:green; font-weight:700;">Thank you! Your review is saved locally.</div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Search Data
+        // -----------------------------
+        // Existing search data & functions (kept as original)
+        // -----------------------------
         const searchData = [
             { title: 'Basic Plan Subscription', price: '₹199/month', type: 'subscription', plan: 'basic' },
             { title: 'Premium Plan Subscription', price: '₹499/month', type: 'subscription', plan: 'premium' },
@@ -818,24 +504,20 @@
             { title: 'Custom Content Creation', price: '₹1999/month', type: 'service', plan: 'enterprise' }
         ];
 
-        // Search Functionality
         const searchInput = document.getElementById('searchInput');
         const searchResults = document.getElementById('searchResults');
 
         searchInput.addEventListener('input', function() {
             const query = this.value.toLowerCase().trim();
-            
             if (query.length === 0) {
                 searchResults.classList.remove('active');
                 return;
             }
-
-            const filtered = searchData.filter(item => 
-                item.title.toLowerCase().includes(query) || 
+            const filtered = searchData.filter(item =>
+                item.title.toLowerCase().includes(query) ||
                 item.type.toLowerCase().includes(query) ||
                 item.price.toLowerCase().includes(query)
             );
-
             if (filtered.length > 0) {
                 displayResults(filtered);
                 searchResults.classList.add('active');
@@ -859,9 +541,7 @@
             if (planCard) {
                 planCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 planCard.style.transform = 'scale(1.05)';
-                setTimeout(() => {
-                    planCard.style.transform = '';
-                }, 500);
+                setTimeout(() => { planCard.style.transform = ''; }, 500);
             }
             searchResults.classList.remove('active');
             searchInput.value = '';
@@ -881,24 +561,26 @@
             }
         });
 
-        // Scroll Progress Bar
+        // -----------------------------
+        // Progress bar
+        // -----------------------------
         window.addEventListener('scroll', () => {
             const winScroll = document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
+            const scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
             document.getElementById('progressBar').style.width = scrolled + '%';
         });
 
-        // Counter Animation
+        // -----------------------------
+        // Counters (kept original)
+        // -----------------------------
         const counters = document.querySelectorAll('.stat-number');
         const speed = 200;
-
         counters.forEach(counter => {
             const updateCount = () => {
                 const target = +counter.getAttribute('data-target');
                 const count = +counter.innerText;
                 const inc = target / speed;
-
                 if (count < target) {
                     counter.innerText = Math.ceil(count + inc);
                     setTimeout(updateCount, 1);
@@ -906,15 +588,227 @@
                     counter.innerText = target + (target === 99 ? '%' : '+');
                 }
             };
-
             const observer = new IntersectionObserver(entries => {
                 if (entries[0].isIntersecting) {
                     updateCount();
                     observer.disconnect();
                 }
             });
-
             observer.observe(counter);
+        });
+
+        // -----------------------------
+        // Login Modal (Google Form)
+        // -----------------------------
+        const loginBtnTop = document.getElementById('loginBtnTop');
+        const loginModal = document.getElementById('loginModal');
+        const loginModalClose = document.getElementById('loginModalClose');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const confirmSubmittedBtn = document.getElementById('confirmSubmittedBtn');
+
+        function openLoginModal() {
+            loginModal.classList.add('show');
+            loginModal.setAttribute('aria-hidden', 'false');
+        }
+        function closeLoginModalFn() {
+            loginModal.classList.remove('show');
+            loginModal.setAttribute('aria-hidden', 'true');
+        }
+
+        loginBtnTop.addEventListener('click', openLoginModal);
+        loginModalClose.addEventListener('click', closeLoginModalFn);
+        closeLoginModal.addEventListener('click', closeLoginModalFn);
+        loginModal.addEventListener('click', (e) => { if (e.target === loginModal) closeLoginModalFn(); });
+
+        // When the user clicks "I submitted the form", mark logged in (client-side).
+        confirmSubmittedBtn.addEventListener('click', () => {
+            // Set local flag that user completed sign-up form (client-side)
+            localStorage.setItem('apj_loggedIn', 'true');
+            closeLoginModalFn();
+            applyLoginState();
+            alert('Thank you — you are now signed in for this browser session.');
+        });
+
+        // -----------------------------
+        // Lock/Unlock buy and alt buttons depending on login state
+        // -----------------------------
+        function applyLoginState() {
+            const loggedIn = localStorage.getItem('apj_loggedIn') === 'true';
+            const buyButtons = document.querySelectorAll('.buy-button, .alt-button');
+            buyButtons.forEach(btn => {
+                if (!loggedIn) {
+                    btn.classList.add('locked');
+                    // intercept clicks: open login modal
+                    btn.addEventListener('click', redirectToLoginIfLocked);
+                } else {
+                    btn.classList.remove('locked');
+                    btn.removeEventListener('click', redirectToLoginIfLocked);
+                }
+            });
+        }
+
+        function redirectToLoginIfLocked(e) {
+            // If button has locked class, prevent default and open login modal
+            if (e.currentTarget.classList.contains('locked')) {
+                e.preventDefault();
+                openLoginModal();
+            }
+        }
+
+        // run on load
+        applyLoginState();
+
+        // -----------------------------
+        // Settings dropdown, language selection, logout
+        // -----------------------------
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsDropdown = document.getElementById('settingsDropdown');
+        const langList = document.getElementById('langList');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        settingsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            settingsDropdown.classList.toggle('show');
+        });
+
+        // Close settings on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#settingsDropdown') && !e.target.closest('#settingsBtn')) {
+                settingsDropdown.classList.remove('show');
+            }
+        });
+
+        // Language buttons
+        langList.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                // save choice
+                localStorage.setItem('apj_lang', lang);
+                // Apply quickly by setting html lang attribute
+                document.documentElement.lang = lang;
+                // Optional: show a tiny toast
+                btn.textContent = btn.textContent + ' ✓';
+                setTimeout(() => {
+                    // remove check after 900ms for UX
+                    btn.textContent = btn.textContent.replace(' ✓','');
+                }, 900);
+            });
+        });
+
+        // Logout button clears session flags
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('apj_loggedIn');
+            // optionally keep language choice but you can clear it if you want
+            // localStorage.removeItem('apj_lang');
+            applyLoginState();
+            settingsDropdown.classList.remove('show');
+            alert('You have been logged out.');
+            // refresh the page to reflect logout
+            location.reload();
+        });
+
+        // On load, apply stored language preference
+        (function applyStoredLang() {
+            const lang = localStorage.getItem('apj_lang');
+            if (lang) document.documentElement.lang = lang;
+        })();
+
+        // -----------------------------
+        // Review modal logic
+        // -----------------------------
+        const openReviewBtn = document.getElementById('openReviewBtn');
+        const reviewModal = document.getElementById('reviewModal');
+        const reviewModalClose = document.getElementById('reviewModalClose');
+        const cancelReview = document.getElementById('cancelReview');
+        const submitReview = document.getElementById('submitReview');
+        const ratingStars = document.getElementById('ratingStars');
+        const reviewText = document.getElementById('reviewText');
+        const reviewSavedMsg = document.getElementById('reviewSavedMsg');
+
+        let currentRating = 3.5; // default visual
+        // initialize stars visual (hover/click)
+        function renderStars(value) {
+            const stars = ratingStars.querySelectorAll('span');
+            stars.forEach(s => {
+                const v = parseInt(s.getAttribute('data-value'));
+                if (value >= v) s.textContent = '★';
+                else if (value > v - 1 && value < v) s.textContent = '★'; // for half-star visuals, keep filled
+                else s.textContent = '☆';
+            });
+        }
+        // populate initial as 3.5 (we'll show 3 filled, 1 filled partially visually already above)
+        renderStars(3);
+
+        ratingStars.addEventListener('click', (e) => {
+            if (e.target && e.target.dataset && e.target.dataset.value) {
+                const v = parseInt(e.target.dataset.value);
+                currentRating = v;
+                renderStars(v);
+            }
+        });
+
+        openReviewBtn.addEventListener('click', () => {
+            reviewModal.classList.add('show');
+            reviewModal.setAttribute('aria-hidden','false');
+        });
+        reviewModalClose.addEventListener('click', () => {
+            reviewModal.classList.remove('show');
+            reviewModal.setAttribute('aria-hidden','true');
+            clearReviewForm();
+        });
+        cancelReview.addEventListener('click', () => {
+            reviewModal.classList.remove('show');
+            reviewModal.setAttribute('aria-hidden','true');
+            clearReviewForm();
+        });
+
+        function clearReviewForm() {
+            reviewText.value = '';
+            currentRating = 3.5;
+            renderStars(3);
+            reviewSavedMsg.style.display = 'none';
+        }
+
+        submitReview.addEventListener('click', () => {
+            const text = reviewText.value.trim();
+            // save to localStorage (frontend only) with timestamp
+            const reviews = JSON.parse(localStorage.getItem('apj_reviews') || '[]');
+            reviews.unshift({ rating: currentRating, text: text, date: new Date().toISOString() });
+            localStorage.setItem('apj_reviews', JSON.stringify(reviews));
+            reviewSavedMsg.style.display = 'block';
+            setTimeout(() => {
+                reviewSavedMsg.style.display = 'none';
+                reviewModal.classList.remove('show');
+                reviewModal.setAttribute('aria-hidden','true');
+                clearReviewForm();
+            }, 900);
+        });
+
+        // -----------------------------
+        // Ensure links that refer to Google Form that open in new tab keep working.
+        // But Buy buttons are locked/unlocked based on login state applied earlier
+        // -----------------------------
+        // Re-run applyLoginState on page load to attach handlers
+        document.addEventListener('DOMContentLoaded', () => {
+            applyLoginState();
+        });
+
+        // Accessibility: close modals on Esc
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (loginModal.classList.contains('show')) closeLoginModalFn();
+                if (reviewModal.classList.contains('show')) { reviewModal.classList.remove('show'); reviewModal.setAttribute('aria-hidden','true'); }
+            }
+        });
+
+        // small helper: prevent default for locked anchors that have target _blank
+        document.querySelectorAll('a.buy-button, a.alt-button').forEach(a => {
+            a.addEventListener('click', (ev) => {
+                if (a.classList.contains('locked')) {
+                    ev.preventDefault();
+                    openLoginModal();
+                }
+            });
         });
     </script>
 </body>
