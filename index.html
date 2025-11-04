@@ -1,815 +1,668 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Alpha Pandit Ji - Premium Spiritual Content & Exclusive Services</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', sans-serif;
-            background: #f5f5f5;
-            color: #1a1a1a;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Scroll Progress Bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            z-index: 9999;
-            transition: width 0.1s;
-        }
-
-        /* Important Notice Banner */
-        .notice-banner {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-            padding: 15px 20px;
-            text-align: center;
-            border-bottom: 3px solid #ff4757;
-            animation: slideDown 0.6s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .notice-banner::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: shine 3s infinite;
-        }
-
-        .notice-banner .notice-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
-        .notice-banner h3 {
-            font-size: 1.1rem; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; color: #fff; font-weight: 800;
-        }
-        .notice-banner p { font-size: 0.95rem; line-height: 1.6; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-        .notice-banner strong { color: #ffeb3b; font-weight: 900; text-decoration: underline; }
-
-        /* Header with Logo and Search */
-        .header {
-            background: #ffffff; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            position: sticky; top: 0; z-index: 999;
-        }
-        .header-container {
-            max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px;
-        }
-        .logo-section { display: flex; align-items: center; gap: 15px; }
-        .logo { width: 70px; height: 70px; border-radius: 50%; overflow: hidden; border: 3px solid #667eea; box-shadow: 0 4px 15px rgba(102,126,234,0.3); flex-shrink: 0; }
-        .logo img { width: 100%; height: 100%; object-fit: cover; }
-        .brand-info h1 { font-size: 1.5rem; font-weight: 800; color: #1a1a1a; margin-bottom: 5px; }
-        .brand-info p { font-size: 0.85rem; color: #666; }
-
-        /* Top Controls (Sign/Login, Search, Settings) */
-        .top-controls {
-            display: flex; align-items: center; gap: 15px; width: 100%;
-        }
-        .search-box { flex: 1; max-width: 560px; position: relative; }
-        .search-box input {
-            width: 100%; padding: 12px 50px 12px 20px; border: 2px solid #e0e0e0; border-radius: 50px; font-size: 1rem; transition: all 0.3s ease; outline: none;
-        }
-        .search-box input:focus { border-color: #667eea; box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1); }
-        .search-box button.search-btn {
-            position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;
-        }
-        .search-box button.search-btn:hover { transform: translateY(-50%) scale(1.05); }
-        .search-box button.search-btn svg { width: 20px; height: 20px; fill: white; }
-
-        .search-results {
-            position: absolute; top: 100%; left: 0; right: 0; background: white; border: 2px solid #e0e0e0; border-radius: 15px; margin-top: 10px; max-height: 400px; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; z-index: 1000;
-        }
-        .search-results.active { display: block; }
-        .search-result-item { padding: 15px 20px; border-bottom: 1px solid #f0f0f0; cursor: pointer; transition: background 0.3s ease; }
-        .search-result-item:hover { background: #f9f9f9; }
-        .result-title { font-weight: 600; color: #1a1a1a; margin-bottom: 5px; }
-        .result-price { color: #667eea; font-weight: 700; }
-        .result-badge { display: inline-block; background: #667eea; color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; margin-left: 10px; }
-
-        /* Top small buttons */
-        .top-buttons {
-            display: flex; align-items: center; gap: 10px;
-        }
-        .btn {
-            padding: 9px 16px; font-size: 0.95rem; font-weight: 700; border-radius: 999px; cursor: pointer; border: none;
-            display: inline-flex; align-items: center; gap: 8px;
-        }
-        .btn-login { background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); color: #fff; box-shadow: 0 6px 18px rgba(102,126,234,0.18); }
-        .btn-login:hover { transform: translateY(-2px); }
-        .btn-settings {
-            background: #fff; color: #667eea; border: 2px solid #e6e6e6; padding: 8px 12px; border-radius: 12px;
-        }
-        .btn-settings:hover { background:#f6f8ff; }
-
-        /* Settings dropdown */
-        .settings-dropdown {
-            position: absolute; right: 0; margin-top: 8px; background: #fff; border: 1px solid #e6e6e6; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; display: none; min-width: 220px; z-index: 2000;
-        }
-        .settings-dropdown.show { display: block; }
-        .settings-item { padding: 12px 14px; cursor: pointer; border-bottom: 1px solid #f0f0f0; display:flex; align-items:center; justify-content:space-between; gap:8px; }
-        .settings-item:last-child { border-bottom: none; }
-        .lang-list { display: flex; gap: 8px; flex-wrap:wrap; margin-top:8px; }
-        .lang-btn { padding:6px 10px; border-radius:8px; border:1px solid #e6e6e6; background:#fff; cursor:pointer; font-size:0.9rem; }
-
-        /* Locked state for buy/alt buttons when not logged in */
-        .locked {
-            pointer-events: none;
-            opacity: 0.6;
-            position: relative;
-        }
-        .locked::after {
-            content: 'Sign Up to use';
-            position: absolute;
-            top: -28px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.75);
-            color: #fff;
-            padding: 4px 8px;
-            font-size: 12px;
-            border-radius: 6px;
-            white-space: nowrap;
-        }
-
-        /* Review button at bottom */
-        .review-area {
-            margin: 40px 20px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            gap:12px;
-        }
-        .btn-review {
-            background: #fff; color: #667eea; border: 2px solid #667eea; padding: 10px 16px; border-radius: 12px; cursor:pointer; font-weight:700;
-        }
-        .btn-review:hover { background: #667eea; color:#fff; transform: translateY(-2px); }
-
-        .star-display {
-            font-size: 1.2rem;
-            color: #ffd700;
-            display:flex;
-            align-items:center;
-            gap:2px;
-            user-select:none;
-        }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 10000;
-        }
-        .modal-overlay.show { display: flex; }
-        .modal-content { width: 94%; max-width: 720px; background: #fff; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-        .modal-close { position: absolute; top: 10px; right: 14px; font-size: 22px; cursor: pointer; color: #333; z-index: 2; }
-        .modal-body { padding: 16px; max-height: 80vh; overflow:auto; }
-        .modal-iframe { width: 100%; height: 70vh; border: none; display: block; }
-
-        /* Review form inside modal */
-        .review-form textarea { width: 100%; min-height: 120px; padding: 12px; border: 1px solid #e6e6e6; border-radius: 8px; resize: vertical; }
-        .review-actions { margin-top: 10px; display:flex; gap:10px; justify-content:flex-end; }
-        .btn-primary { background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:#fff; padding:10px 14px; border-radius:8px; border:none; cursor:pointer; font-weight:700; }
-        .btn-secondary { background:#fff; border:1px solid #e6e6e6; padding:10px 14px; border-radius:8px; cursor:pointer; }
-
-        /* Stats Section */
-        .stats { padding: 60px 20px; background: #ffffff; position: relative; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .stat-card { text-align: center; padding: 35px; background: linear-gradient(145deg, #f9f9f9, #fff); border-radius: 20px; border: 2px solid #e0e0e0; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-        .stat-card:hover { transform: translateY(-10px); box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2); }
-        .stat-number { font-size: 3rem; font-weight: 900; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
-        .stat-label { font-size: 1rem; color: #666; }
-
-        /* Pricing Section */
-        .pricing { padding: 80px 20px; background: #f5f5f5; position: relative; }
-        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; font-weight: 800; color: #1a1a1a; }
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; }
-        .price-card { background: #ffffff; border-radius: 25px; padding: 40px 30px; text-align: center; position: relative; border: 2px solid #e0e0e0; transition: all 0.4s ease; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
-        .price-card::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(102,126,234,0.05), transparent); transition:left 0.6s; }
-        .price-card:hover::before { left:100%; }
-        .price-card:hover { transform: translateY(-10px) scale(1.02); border-color: #667eea; box-shadow: 0 15px 40px rgba(102,126,234,0.25); }
-        .price-card.featured { border-color: #FFD700; box-shadow: 0 15px 40px rgba(255,215,0,0.25); transform: scale(1.03); }
-        .price-badge { display:inline-block; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:white; padding:8px 20px; border-radius:20px; font-size:0.85rem; font-weight:700; margin-bottom:20px; text-transform:uppercase; letter-spacing:0.5px; }
-        .price-card.featured .price-badge { background: linear-gradient(135deg,#FFD700 0%,#FFA500 100%); color:#000; }
-        .price-card h3 { font-size: 1.8rem; margin-bottom: 15px; font-weight: 800; color: #1a1a1a; }
-        .price { font-size: 3rem; font-weight: 900; color: #667eea; margin-bottom: 10px; line-height: 1; }
-        .price span { font-size: 1.1rem; color: #888; font-weight: 400; }
-        .price-features { list-style:none; margin:30px 0; text-align:left; }
-        .price-features li { padding:14px 0; border-bottom:1px solid #e0e0e0; color:#333; display:flex; align-items:center; font-size:0.95rem; }
-        .price-features li::before { content:'✓'; display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); border-radius:50%; margin-right:12px; font-weight:900; font-size:0.85rem; color:white; flex-shrink:0; }
-        .buy-button { display:block; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); color:white; padding:16px 40px; border-radius:50px; text-decoration:none; font-weight:700; font-size:1rem; margin-top:25px; transition:all 0.3s ease; box-shadow: 0 10px 30px rgba(102,126,234,0.3); position:relative; overflow:hidden; text-align:center; }
-        .buy-button::before { content:''; position:absolute; top:50%; left:50%; width:0; height:0; border-radius:50%; background:rgba(255,255,255,0.2); transform:translate(-50%,-50%); transition:width 0.6s,height 0.6s; }
-        .buy-button:hover::before { width:400px; height:400px; }
-        .buy-button:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(102,126,234,0.5); }
-        .price-card.featured .buy-button { background: linear-gradient(135deg,#FFD700 0%,#FFA500 100%); color:#000; }
-        .alt-button { display:block; background:transparent; color:#667eea; padding:14px 35px; border:2px solid #667eea; border-radius:50px; text-decoration:none; font-weight:600; font-size:0.95rem; margin-top:15px; transition:all 0.3s ease; text-align:center; }
-        .alt-button:hover { background:#667eea; color:white; transform:translateY(-2px); }
-
-        /* Footer */
-        .footer { background:#ffffff; padding:60px 20px 40px; text-align:center; border-top:2px solid #e0e0e0; }
-        .footer-title { font-size:1.8rem; margin-bottom:30px; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:800; }
-        .social-links { display:flex; justify-content:center; gap:25px; margin-bottom:35px; flex-wrap:wrap; }
-        .social-links a { display:inline-flex; align-items:center; justify-content:center; width:55px; height:55px; background: linear-gradient(145deg,#f9f9f9,#fff); border-radius:50%; color:#667eea; font-size:1.6rem; text-decoration:none; transition:all 0.3s ease; border:2px solid #e0e0e0; position:relative; overflow:hidden; }
-        .social-links a::before { content:''; position:absolute; top:50%; left:50%; width:0; height:0; border-radius:50%; background:#667eea; transform:translate(-50%,-50%); transition:width 0.4s,height 0.4s; }
-        .social-links a:hover::before { width:100%; height:100%; }
-        .social-links a:hover { color:white; transform:translateY(-8px) scale(1.1); box-shadow: 0 10px 30px rgba(102,126,234,0.3); border-color:#667eea; }
-        .social-links a svg { position:relative; z-index:1; }
-        .footer p { color:#666; margin:12px 0; font-size:0.95rem; }
-        .footer a { color:#667eea; text-decoration:none; transition:color 0.3s; }
-        .footer a:hover { color:#764ba2; }
-
-        @keyframes slideDown { from { opacity:0; transform:translateY(-50px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes shine { 0% { transform:translate(-50%,-50%) rotate(0deg); } 100% { transform:translate(-50%,-50%) rotate(360deg); } }
-
-        @media (max-width: 768px) {
-            .header-container { flex-direction: column; gap: 14px; align-items:stretch; }
-            .logo-section { flex-direction: row; gap:12px; align-items:center; }
-            .brand-info h1 { font-size: 1.2rem; }
-            .search-box { max-width:100%; }
-            .section-title { font-size:2rem; }
-            .pricing-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Alpha Pandit Ji - Premium Spiritual Content & Exclusive Services</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter','Roboto',sans-serif;background:#f5f5f5;color:#111;line-height:1.5;overflow-x:hidden}
+  /* Progress bar */
+  .progress-bar{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,#667eea 0%,#764ba2 50%,#f093fb 100%);z-index:9999;transition:width .12s}
+  /* Notice */
+  .notice-banner{background:linear-gradient(135deg,#ff6b6b 0%,#ee5a6f 100%);padding:14px;text-align:center;color:#fff;border-bottom:3px solid #ff4757;position:relative;overflow:hidden}
+  .notice-banner h3{font-weight:800;margin-bottom:6px}
+  /* Header */
+  .header{background:#fff;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.07);position:sticky;top:0;z-index:900}
+  .header-container{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  .left-area{display:flex;align-items:center;gap:14px}
+  .logo{width:70px;height:70px;border-radius:50%;overflow:hidden;border:3px solid #667eea;box-shadow:0 4px 15px rgba(102,126,234,.25);flex-shrink:0}
+  .logo img{width:100%;height:100%;object-fit:cover}
+  .brand-info h1{font-size:1.35rem;font-weight:800;color:#111}
+  .brand-info p{font-size:.86rem;color:#666;margin-top:3px}
+  .top-controls{display:flex;align-items:center;gap:12px;flex:1;justify-content:flex-end}
+  .search-wrap{flex:1;max-width:600px;position:relative}
+  .search-box input{width:100%;padding:12px 50px 12px 18px;border:2px solid #e8e8e8;border-radius:50px;font-size:1rem;outline:none}
+  .search-box input:focus{border-color:#667eea;box-shadow:0 0 0 4px rgba(102,126,234,.08)}
+  .search-btn{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:none;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .top-buttons{display:flex;align-items:center;gap:10px}
+  .btn{padding:9px 16px;border-radius:999px;font-weight:700;font-size:.95rem;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px}
+  .btn-login{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;box-shadow:0 8px 20px rgba(102,126,234,.18)}
+  .btn-login:hover{transform:translateY(-2px)}
+  .btn-settings{background:#fff;border:1px solid #e6e6e6;padding:8px 12px;border-radius:10px;color:#333;cursor:pointer}
+  /* Settings dropdown */
+  .settings-dropdown{position:absolute;right:0;margin-top:8px;background:#fff;border:1px solid #e6e6e6;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.08);display:none;min-width:220px;z-index:2000;overflow:hidden}
+  .settings-dropdown.show{display:block}
+  .settings-title{padding:10px 14px;font-weight:800;color:#333;border-bottom:1px solid #f0f0f0}
+  .settings-item{padding:12px 14px;border-bottom:1px solid #f4f4f4;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .settings-item:last-child{border-bottom:none}
+  .lang-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .lang-btn{padding:6px 10px;border-radius:8px;border:1px solid #e6e6e6;background:#fff;cursor:pointer;font-size:.9rem}
+  /* Main sections kept as original look */
+  .stats{padding:60px 20px;background:#fff}
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;max-width:1200px;margin:0 auto}
+  .stat-card{padding:34px;border-radius:18px;background:linear-gradient(145deg,#f8f8f9,#fff);border:2px solid #eaeaea;box-shadow:0 6px 20px rgba(0,0,0,.05);text-align:center}
+  .stat-number{font-size:2.6rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+  /* Pricing */
+  .pricing{padding:72px 20px;background:#f5f5f5}
+  .section-title{text-align:center;font-size:2.3rem;margin-bottom:36px;font-weight:800}
+  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;max-width:1200px;margin:0 auto}
+  .price-card{background:#fff;border-radius:20px;padding:28px;border:2px solid #eaeaea;box-shadow:0 6px 24px rgba(0,0,0,.04);position:relative}
+  .price-badge{display:inline-block;padding:6px 14px;border-radius:16px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-weight:700;margin-bottom:14px}
+  .price{font-size:2.2rem;font-weight:900;color:#667eea;margin-bottom:8px}
+  .price-features{list-style:none;margin:18px 0}
+  .price-features li{padding:10px 0;border-bottom:1px solid #f0f0f0;display:flex;gap:10px;align-items:center}
+  .buy-button{display:block;text-align:center;padding:14px 22px;border-radius:999px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;font-weight:800;text-decoration:none;margin-top:12px;box-shadow:0 10px 30px rgba(102,126,234,.18)}
+  /* locked state (before login) */
+  .locked{pointer-events:none;opacity:.6;position:relative}
+  .locked::after{content:'Sign Up to use';position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:5px 8px;border-radius:6px;font-size:.82rem;white-space:nowrap}
+  /* Footer */
+  .footer{background:#fff;padding:60px 20px;border-top:2px solid #eee;text-align:center}
+  .footer-title{font-size:1.6rem;margin-bottom:20px;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  /* Review carousel area */
+  .review-section{padding:28px 12px;background:#fff;margin:18px 0}
+  .review-container{max-width:1200px;margin:0 auto}
+  .review-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .review-title{font-size:1.25rem;font-weight:800;color:#111}
+  .review-sub{color:#666;font-size:.95rem}
+  .carousel-viewport{position:relative;overflow:hidden}
+  .carousel-track{display:flex;gap:12px;transition:transform 600ms cubic-bezier(.2,.9,.2,1);will-change:transform}
+  .review-card{min-width:220px;max-width:220px;background:linear-gradient(145deg,#fff,#fbfbfe);padding:14px;border-radius:12px;border:1px solid #eee;box-shadow:0 8px 24px rgba(0,0,0,.04);display:flex;flex-direction:column;gap:10px}
+  .review-top{display:flex;gap:10px;align-items:center}
+  .avatar{width:48px;height:48px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(102,126,234,.12)}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .r-name{font-weight:700}
+  .r-meta{font-size:.86rem;color:#666}
+  .r-stars{color:#ffd700;font-weight:800}
+  .r-text{font-size:.92rem;color:#222;min-height:48px;overflow:hidden}
+  .r-emojis{font-size:1rem}
+  /* Controls */
+  .carousel-controls{display:flex;gap:8px;align-items:center}
+  .carousel-btn{background:#fff;border:1px solid #e6e6e6;padding:8px 10px;border-radius:8px;cursor:pointer}
+  .carousel-btn:hover{background:#f6f8ff}
+  /* modal */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:12000;padding:20px}
+  .modal-overlay.show{display:flex}
+  .modal-card{width:100%;max-width:760px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.35)}
+  .modal-head{padding:12px 16px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center}
+  .modal-body{padding:16px}
+  .modal-close{background:none;border:none;font-size:22px;cursor:pointer}
+  .modal-iframe{width:100%;height:62vh;border:0}
+  /* review input */
+  .review-input textarea{width:100%;min-height:120px;padding:10px;border-radius:8px;border:1px solid #eee;resize:vertical}
+  .review-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
+  .btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+  .btn-secondary{background:#fff;border:1px solid #e6e6e6;padding:10px 14px;border-radius:8px;cursor:pointer}
+  /* responsive */
+  @media (max-width:900px){
+    .carousel-track{gap:10px}
+    .review-card{min-width:200px;max-width:200px}
+  }
+  @media (max-width:600px){
+    .header-container{flex-direction:column;align-items:stretch;gap:10px}
+    .left-area{width:100%;justify-content:flex-start}
+    .top-controls{justify-content:space-between}
+    .search-wrap{order:3;width:100%}
+  }
+</style>
 </head>
 <body>
-    <!-- Scroll Progress Bar -->
-    <div class="progress-bar" id="progressBar"></div>
+  <div class="progress-bar" id="progressBar"></div>
 
-    <!-- Important Notice Banner -->
-    <section class="notice-banner">
-        <div class="notice-content">
-            <h3>⚠️ IMPORTANT NOTICE</h3>
-            <p>
-                <strong>Once you purchase any subscription, the payment is NON-REFUNDABLE.</strong> 
-                Whether you like our service or not, <strong>we will NOT provide any refund.</strong> 
-                Please purchase subscription <strong>at your own risk and discretion.</strong> Thank you!
-            </p>
-        </div>
-    </section>
-
-    <!-- Header with Logo, SignUp/Login, Search, Settings -->
-    <header class="header">
-        <div class="header-container">
-            <div style="display:flex; align-items:center; gap:18px;">
-                <div class="logo-section">
-                    <div class="logo">
-                        <img src="https://i.ibb.co/HTmgqXLh/Picsart-25-11-04-05-36-14-228.png" alt="Alpha Pandit Ji">
-                    </div>
-                    <div class="brand-info">
-                        <h1>Alpha Pandit Ji</h1>
-                        <p>Premium Spiritual Content & Exclusive Services</p>
-                    </div>
-                </div>
-
-                <!-- Sign Up / Login Button (near logo) -->
-                <div>
-                    <button id="loginBtnTop" class="btn btn-login">Sign Up / Login</button>
-                </div>
-            </div>
-
-            <div class="top-controls">
-                <div style="position:relative; width:100%;">
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search subscriptions, products, services..." autocomplete="off">
-                        <button class="search-btn" type="button" onclick="performSearch()" title="Search">
-                            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                        </button>
-                        <div class="search-results" id="searchResults"></div>
-                    </div>
-                </div>
-
-                <!-- Settings -->
-                <div style="position:relative;">
-                    <button id="settingsBtn" class="btn btn-settings" title="Settings">⚙️ Settings</button>
-                    <div id="settingsDropdown" class="settings-dropdown" aria-hidden="true">
-                        <div style="padding:12px 14px; font-weight:800; color:#333;">Settings</div>
-                        <div class="settings-item" style="flex-direction:column; align-items:flex-start;">
-                            <div style="font-weight:700; margin-bottom:8px;">Language</div>
-                            <div class="lang-list" id="langList">
-                                <button class="lang-btn" data-lang="hi">Hindi</button>
-                                <button class="lang-btn" data-lang="en">English</button>
-                                <button class="lang-btn" data-lang="en-IN">English (India)</button>
-                                <button class="lang-btn" data-lang="es">Spanish</button>
-                                <button class="lang-btn" data-lang="fr">French</button>
-                            </div>
-                        </div>
-                        <div class="settings-item" id="logoutItem" style="justify-content:center; background:#fff; cursor:pointer;">
-                            <button id="logoutBtn" class="btn-secondary" style="width:100%;">Logout</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Login Modal (Google Form inside iframe) -->
-    <div id="loginModal" class="modal-overlay" aria-hidden="true">
-        <div class="modal-content">
-            <span class="modal-close" id="loginModalClose">&times;</span>
-            <div class="modal-body">
-                <p style="font-weight:800; margin-bottom:8px;">Sign Up / Login — please fill this form</p>
-                <!-- Google Form embedded -->
-                <iframe class="modal-iframe" id="googleFormIframe"
-                    src="https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform?usp=dialog"
-                    title="Google Form"></iframe>
-
-                <!-- Note: cross-origin prevents auto-detecting submission.
-                     Provide a manual confirmation button for user to confirm they submitted the form. -->
-                <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
-                    <button id="confirmSubmittedBtn" class="btn btn-primary" style="background:linear-gradient(135deg,#667eea,#764ba2); border:none; color:#fff;">I submitted the form</button>
-                    <button id="closeLoginModal" class="btn btn-secondary" style="border:1px solid #e6e6e6;">Close</button>
-                </div>
-            </div>
-        </div>
+  <section class="notice-banner">
+    <div style="max-width:1200px;margin:0 auto">
+      <h3>⚠️ IMPORTANT NOTICE</h3>
+      <p><strong>Once you purchase any subscription, the payment is NON-REFUNDABLE.</strong> Please purchase at your own risk and discretion.</p>
     </div>
+  </section>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number" data-target="5000">0</div>
-                <div class="stat-label">Happy Members</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" data-target="10000">0</div>
-                <div class="stat-label">Content Downloads</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" data-target="50">0</div>
-                <div class="stat-label">Premium Apps Unlocked</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" data-target="99">0</div>
-                <div class="stat-label">Customer Satisfaction</div>
-            </div>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-container">
+      <div class="left-area">
+        <div class="logo"><img src="https://i.ibb.co/HTmgqXLh/Picsart-25-11-04-05-36-14-228.png" alt="Alpha Pandit Ji"></div>
+        <div class="brand-info">
+          <h1>Alpha Pandit Ji</h1>
+          <p>Premium Spiritual Content & Exclusive Services</p>
         </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <h2 class="section-title">Choose Your Premium Plan</h2>
-        <div class="pricing-grid">
-            <!-- Basic Plan -->
-            <div class="price-card" data-plan="basic">
-                <span class="price-badge">BASIC</span>
-                <h3>Basic Plan</h3>
-                <div class="price">₹199<span>/month</span></div>
-                <ul class="price-features">
-                    <li>Premium Telegram Channel Access</li>
-                    <li>Daily Spiritual Content</li>
-                    <li>Community Support</li>
-                    <li>30 Days Validity</li>
-                </ul>
-                <a href="https://imjo.in/v8sXQG" class="buy-button" target="_blank">Buy Now</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform" class="alt-button" target="_blank">Alternative Form</a>
-            </div>
-
-            <!-- Premium Plan -->
-            <div class="price-card featured" data-plan="premium">
-                <span class="price-badge">⭐ MOST POPULAR</span>
-                <h3>Premium Plan</h3>
-                <div class="price">₹499<span>/month</span></div>
-                <ul class="price-features">
-                    <li>All Basic Features</li>
-                    <li>WhatsApp Group Access</li>
-                    <li>Priority Support</li>
-                    <li>Exclusive Spiritual Content</li>
-                    <li>30 Days Validity</li>
-                </ul>
-                <a href="https://imjo.in/mKZYp9" class="buy-button" target="_blank">Buy Now</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform" class="alt-button" target="_blank">Alternative Form</a>
-            </div>
-
-            <!-- Premium Plus Plan -->
-            <div class="price-card" data-plan="premium-plus">
-                <span class="price-badge">💎 VIP</span>
-                <h3>Premium Plus</h3>
-                <div class="price">₹999<span>/month</span></div>
-                <ul class="price-features">
-                    <li>Daily New Updates For Social Media</li>
-                    <li>Personal Guide For Only Plus Members</li>
-                    <li>All Premium Features</li>
-                    <li>Personal Guidance</li>
-                    <li>All Editing Premiums Unlocked Apps</li>
-                    <li>30 Days Validity</li>
-                    <li>VIP Content Access</li>
-                </ul>
-                <a href="https://imjo.in/g9YxyK" class="buy-button" target="_blank">Buy Now</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform" class="alt-button" target="_blank">Alternative Form</a>
-            </div>
-
-            <!-- Enterprise Plan -->
-            <div class="price-card" data-plan="enterprise">
-                <span class="price-badge">💼 ENTERPRISE</span>
-                <h3>Enterprise Plan</h3>
-                <div class="price">₹1999<span>/month</span></div>
-                <ul class="price-features">
-                    <li>All Premium Plus Features</li>
-                    <li>24/7 Priority Support</li>
-                    <li>Custom Content Creation Service</li>
-                    <li>Movie Clips Upload Without Copyright</li>
-                    <li>Bulk Premium Apps Unlocked (50+)</li>
-                    <li>Weekly Any 10 Questions Answered</li>
-                    <li>Premium Telegram Contact Access</li>
-                    <li>30 Days Validity</li>
-                    <li>Private VIP Group Access</li>
-                    <li>Early Access to New Features</li>
-                    <li>YouTube Channel Security Tips & Tricks</li>
-                </ul>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform" class="buy-button" target="_blank">Buy Now</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform" class="alt-button" target="_blank">Alternative Form</a>
-            </div>
+        <!-- Sign up/login near logo -->
+        <div>
+          <button id="loginBtnTop" class="btn btn-login">Sign Up / Login</button>
         </div>
-    </section>
+      </div>
 
-    <!-- Review Area (bottom) -->
-    <div class="review-area">
-        <div class="star-display" aria-hidden="true">
-            <!-- show 3.5 stars visually -->
-            <span>★</span><span>★</span><span>★</span><span>★</span><span style="position:relative; color:#fff; margin-left:-18px;">★</span>
-            <span style="margin-left:8px; color:#333; font-weight:700;">(3.5)</span>
+      <div class="top-controls">
+        <div class="search-wrap" style="position:relative">
+          <div class="search-box">
+            <input id="searchInput" type="text" placeholder="Search subscriptions, products, services..." autocomplete="off">
+            <button class="search-btn" type="button" title="Search" onclick="performSearch()">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5z"/></svg>
+            </button>
+          </div>
         </div>
-        <button id="openReviewBtn" class="btn-review">Review</button>
+
+        <!-- Settings -->
+        <div style="position:relative">
+          <button id="settingsBtn" class="btn btn-settings" title="Settings">⚙️ Settings</button>
+          <div id="settingsDropdown" class="settings-dropdown" aria-hidden="true">
+            <div class="settings-title">Settings</div>
+            <div class="settings-item" style="flex-direction:column;align-items:flex-start;">
+              <div style="font-weight:700;margin-bottom:8px">Language</div>
+              <div class="lang-list" id="langList">
+                <button class="lang-btn" data-lang="hi">Hindi</button>
+                <button class="lang-btn" data-lang="en">English</button>
+                <button class="lang-btn" data-lang="en-IN">English (India)</button>
+                <button class="lang-btn" data-lang="es">Spanish</button>
+                <button class="lang-btn" data-lang="fr">French</button>
+              </div>
+            </div>
+            <div class="settings-item" style="justify-content:center;background:#fff;">
+              <button id="logoutBtn" class="btn-secondary" style="width:100%;">Logout</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </header>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <h3 class="footer-title">Follow Us on Social Media</h3>
-        <div class="social-links">
-            <a href="https://www.instagram.com/alphapanditjiofficial?igsh=cjhwZ2F2bXowMHJp" target="_blank" title="Instagram">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-            <a href="https://youtube.com/@alphapanditji?si=8EiqrotqCMrtcGyt" target="_blank" title="YouTube Alpha Pandit Ji">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </a>
-            <a href="https://youtube.com/@holaaieditz?si=DLe-zaPr0vqlYao7" target="_blank" title="YouTube Hola AI Editz">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </a>
-            <a href="https://t.me/AlphaPanditJiApp" target="_blank" title="Telegram">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-            </a>
-            <a href="https://whatsapp.com/channel/0029VbB4dZrCxoB4uE18WT2a" target="_blank" title="WhatsApp">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-            </a>
-            <a href="https://www.facebook.com/share/1BuK9n8R1N/" target="_blank" title="Facebook">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
+  <!-- LOGIN MODAL (Google Form) -->
+  <div id="loginModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <strong>Sign Up / Login</strong>
+        <button class="modal-close" id="loginModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-weight:700;margin-bottom:8px;">Please fill this form to sign up / login</p>
+        <iframe class="modal-iframe" id="googleFormIframe"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform?usp=dialog"
+          title="Google Form"></iframe>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+          <button id="confirmSubmittedBtn" class="btn-primary">I submitted the form</button>
+          <button id="closeLoginModal" class="btn-secondary">Close</button>
         </div>
-        <p>&copy; 2025 Alpha Pandit Ji | All Rights Reserved</p>
-        <p>Secure payments powered by <a href="https://www.instamojo.com" target="_blank">Instamojo</a></p>
-        <p>Made with ❤️ in India</p>
-    </footer>
-
-    <!-- Review Modal -->
-    <div id="reviewModal" class="modal-overlay" aria-hidden="true">
-        <div class="modal-content">
-            <span class="modal-close" id="reviewModalClose">&times;</span>
-            <div class="modal-body">
-                <h3 style="margin-bottom:8px;">Leave a Review</h3>
-                <div style="margin-bottom:8px;">
-                    <label style="font-weight:700;">Your Rating:</label>
-                    <div id="ratingStars" style="display:flex; gap:6px; margin-top:6px; font-size:1.6rem; color:#ffd700; cursor:pointer;">
-                        <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span>
-                    </div>
-                </div>
-                <div class="review-form">
-                    <textarea id="reviewText" placeholder="Write your review..."></textarea>
-                </div>
-                <div class="review-actions">
-                    <button id="submitReview" class="btn-primary">Submit Review</button>
-                    <button id="cancelReview" class="btn-secondary">Cancel</button>
-                </div>
-                <div id="reviewSavedMsg" style="margin-top:10px; display:none; color:green; font-weight:700;">Thank you! Your review is saved locally.</div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // -----------------------------
-        // Existing search data & functions (kept as original)
-        // -----------------------------
-        const searchData = [
-            { title: 'Basic Plan Subscription', price: '₹199/month', type: 'subscription', plan: 'basic' },
-            { title: 'Premium Plan Subscription', price: '₹499/month', type: 'subscription', plan: 'premium' },
-            { title: 'Premium Plus Subscription', price: '₹999/month', type: 'subscription', plan: 'premium-plus' },
-            { title: 'Enterprise Plan Subscription', price: '₹1999/month', type: 'subscription', plan: 'enterprise' },
-            { title: 'Telegram Channel Access', price: 'From ₹199', type: 'service', plan: 'basic' },
-            { title: 'WhatsApp Group Support', price: 'From ₹499', type: 'service', plan: 'premium' },
-            { title: 'VIP Content Access', price: '₹999/month', type: 'service', plan: 'premium-plus' },
-            { title: 'Custom Content Creation', price: '₹1999/month', type: 'service', plan: 'enterprise' }
-        ];
+  <!-- STATS -->
+  <section class="stats">
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-number" data-target="5000">0</div><div class="stat-label">Happy Members</div></div>
+      <div class="stat-card"><div class="stat-number" data-target="10000">0</div><div class="stat-label">Content Downloads</div></div>
+      <div class="stat-card"><div class="stat-number" data-target="50">0</div><div class="stat-label">Premium Apps Unlocked</div></div>
+      <div class="stat-card"><div class="stat-number" data-target="99">0</div><div class="stat-label">Customer Satisfaction</div></div>
+    </div>
+  </section>
 
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
+  <!-- PRICING (Alternative Form removed) -->
+  <section class="pricing" id="pricing">
+    <h2 class="section-title">Choose Your Premium Plan</h2>
+    <div class="pricing-grid">
+      <!-- Basic -->
+      <div class="price-card" data-plan="basic">
+        <span class="price-badge">BASIC</span>
+        <h3>Basic Plan</h3>
+        <div class="price">₹199<span style="font-size:.9rem;color:#777;font-weight:600">/month</span></div>
+        <ul class="price-features">
+          <li>Premium Telegram Channel Access</li>
+          <li>Daily Spiritual Content</li>
+          <li>Community Support</li>
+          <li>30 Days Validity</li>
+        </ul>
+        <a href="https://imjo.in/v8sXQG" class="buy-button locked" target="_blank" rel="noopener">Buy Now</a>
+      </div>
 
-        searchInput.addEventListener('input', function() {
-            const query = this.value.toLowerCase().trim();
-            if (query.length === 0) {
-                searchResults.classList.remove('active');
-                return;
-            }
-            const filtered = searchData.filter(item =>
-                item.title.toLowerCase().includes(query) ||
-                item.type.toLowerCase().includes(query) ||
-                item.price.toLowerCase().includes(query)
-            );
-            if (filtered.length > 0) {
-                displayResults(filtered);
-                searchResults.classList.add('active');
-            } else {
-                searchResults.innerHTML = '<div class="search-result-item"><div class="result-title">No results found</div></div>';
-                searchResults.classList.add('active');
-            }
-        });
+      <!-- Premium -->
+      <div class="price-card featured" data-plan="premium">
+        <span class="price-badge">⭐ MOST POPULAR</span>
+        <h3>Premium Plan</h3>
+        <div class="price">₹499<span style="font-size:.9rem;color:#777;font-weight:600">/month</span></div>
+        <ul class="price-features">
+          <li>All Basic Features</li>
+          <li>WhatsApp Group Access</li>
+          <li>Priority Support</li>
+          <li>Exclusive Spiritual Content</li>
+        </ul>
+        <a href="https://imjo.in/mKZYp9" class="buy-button locked" target="_blank" rel="noopener">Buy Now</a>
+      </div>
 
-        function displayResults(results) {
-            searchResults.innerHTML = results.map(item => `
-                <div class="search-result-item" onclick="scrollToPlan('${item.plan}')">
-                    <div class="result-title">${item.title}<span class="result-badge">${item.type}</span></div>
-                    <div class="result-price">${item.price}</div>
-                </div>
-            `).join('');
-        }
+      <!-- Premium Plus -->
+      <div class="price-card" data-plan="premium-plus">
+        <span class="price-badge">💎 VIP</span>
+        <h3>Premium Plus</h3>
+        <div class="price">₹999<span style="font-size:.9rem;color:#777;font-weight:600">/month</span></div>
+        <ul class="price-features">
+          <li>Daily New Updates For Social Media</li>
+          <li>Personal Guide For Only Plus Members</li>
+          <li>All Premium Features</li>
+        </ul>
+        <a href="https://imjo.in/g9YxyK" class="buy-button locked" target="_blank" rel="noopener">Buy Now</a>
+      </div>
 
-        function scrollToPlan(planType) {
-            const planCard = document.querySelector(`[data-plan="${planType}"]`);
-            if (planCard) {
-                planCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                planCard.style.transform = 'scale(1.05)';
-                setTimeout(() => { planCard.style.transform = ''; }, 500);
-            }
-            searchResults.classList.remove('active');
-            searchInput.value = '';
-        }
+      <!-- Enterprise -->
+      <div class="price-card" data-plan="enterprise">
+        <span class="price-badge">💼 ENTERPRISE</span>
+        <h3>Enterprise Plan</h3>
+        <div class="price">₹1999<span style="font-size:.9rem;color:#777;font-weight:600">/month</span></div>
+        <ul class="price-features">
+          <li>All Premium Plus Features</li>
+          <li>24/7 Priority Support</li>
+          <li>Custom Content Creation Service</li>
+        </ul>
+        <a href="https://imjo.in/enterprise" class="buy-button locked" target="_blank" rel="noopener">Buy Now</a>
+      </div>
+    </div>
+  </section>
 
-        function performSearch() {
-            const query = searchInput.value.toLowerCase().trim();
-            if (query) {
-                searchInput.dispatchEvent(new Event('input'));
-            }
-        }
+  <!-- REVIEW SECTION (carousel style) -->
+  <section class="review-section" aria-label="Reviews">
+    <div class="review-container">
+      <div class="review-header">
+        <div>
+          <div class="review-title">What our audience says</div>
+          <div class="review-sub">Real people — real experiences. Average rating <strong>4.7 ⭐</strong></div>
+        </div>
+        <div class="carousel-controls">
+          <button id="prevBtn" class="carousel-btn">◀</button>
+          <button id="nextBtn" class="carousel-btn">▶</button>
+          <button id="openReviewBtn" class="btn btn-primary" style="margin-left:10px">Give Your Review</button>
+        </div>
+      </div>
 
-        // Close search results when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.search-box')) {
-                searchResults.classList.remove('active');
-            }
-        });
+      <div class="carousel-viewport">
+        <div id="carouselTrack" class="carousel-track" aria-live="polite">
+          <!-- Cards will be injected by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // -----------------------------
-        // Progress bar
-        // -----------------------------
-        window.addEventListener('scroll', () => {
-            const winScroll = document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
-            document.getElementById('progressBar').style.width = scrolled + '%';
-        });
+  <footer class="footer">
+    <h3 class="footer-title">Follow Us on Social Media</h3>
+    <div style="display:flex;justify-content:center;gap:16px;margin-bottom:14px;flex-wrap:wrap">
+      <!-- icons -->
+      <a href="#" target="_blank" style="text-decoration:none;color:inherit">Instagram</a>
+      <a href="#" target="_blank" style="text-decoration:none;color:inherit">YouTube</a>
+      <a href="#" target="_blank" style="text-decoration:none;color:inherit">Telegram</a>
+      <a href="#" target="_blank" style="text-decoration:none;color:inherit">WhatsApp</a>
+    </div>
+    <p>&copy; 2025 Alpha Pandit Ji | All Rights Reserved</p>
+    <p>Secure payments powered by <a href="https://www.instamojo.com" target="_blank">Instamojo</a></p>
+    <p>Made with ❤️ in India</p>
+  </footer>
 
-        // -----------------------------
-        // Counters (kept original)
-        // -----------------------------
-        const counters = document.querySelectorAll('.stat-number');
-        const speed = 200;
-        counters.forEach(counter => {
-            const updateCount = () => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                const inc = target / speed;
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(updateCount, 1);
-                } else {
-                    counter.innerText = target + (target === 99 ? '%' : '+');
-                }
-            };
-            const observer = new IntersectionObserver(entries => {
-                if (entries[0].isIntersecting) {
-                    updateCount();
-                    observer.disconnect();
-                }
-            });
-            observer.observe(counter);
-        });
+  <!-- REVIEW MODAL (submit review) -->
+  <div id="reviewModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <strong>Leave a Review</strong>
+        <button class="modal-close" id="reviewModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label style="font-weight:700">Your name</label>
+        <input id="reviewerName" type="text" style="width:100%;padding:10px;border-radius:8px;border:1px solid #eee;margin-top:8px;margin-bottom:10px">
+        <label style="font-weight:700">Rating</label>
+        <div id="ratingInput" style="display:flex;gap:8px;font-size:1.6rem;color:#ffd700;margin-top:8px;margin-bottom:10px;cursor:pointer">
+          <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span>
+        </div>
+        <div class="review-input">
+          <label style="font-weight:700">Your review</label>
+          <textarea id="reviewMessage" placeholder="Write your review..." style="width:100%;min-height:100px;padding:10px;border-radius:8px;border:1px solid #eee;margin-top:8px"></textarea>
+        </div>
+        <div class="review-actions">
+          <button id="submitReview" class="btn-primary">Submit</button>
+          <button id="cancelReview" class="btn-secondary">Cancel</button>
+        </div>
+        <div id="reviewSavedMsg" style="color:green;margin-top:10px;font-weight:700;display:none">Thanks — your review was saved locally.</div>
+      </div>
+    </div>
+  </div>
 
-        // -----------------------------
-        // Login Modal (Google Form)
-        // -----------------------------
-        const loginBtnTop = document.getElementById('loginBtnTop');
-        const loginModal = document.getElementById('loginModal');
-        const loginModalClose = document.getElementById('loginModalClose');
-        const closeLoginModal = document.getElementById('closeLoginModal');
-        const confirmSubmittedBtn = document.getElementById('confirmSubmittedBtn');
+<script>
+/* ------------------------------
+   Small helpers and original features
+   ------------------------------ */
+(function(){
+  // progress bar
+  window.addEventListener('scroll', () => {
+    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+    document.getElementById('progressBar').style.width = scrolled + '%';
+  });
 
-        function openLoginModal() {
-            loginModal.classList.add('show');
-            loginModal.setAttribute('aria-hidden', 'false');
-        }
-        function closeLoginModalFn() {
-            loginModal.classList.remove('show');
-            loginModal.setAttribute('aria-hidden', 'true');
-        }
+  // counters (same logic)
+  const counters = document.querySelectorAll('.stat-number');
+  const speed = 200;
+  counters.forEach(counter => {
+    const updateCount = () => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText;
+      const inc = target / speed;
+      if (count < target) {
+        counter.innerText = Math.ceil(count + inc);
+        setTimeout(updateCount, 1);
+      } else {
+        counter.innerText = target + (target === 99 ? '%' : '+');
+      }
+    };
+    const obs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { updateCount(); obs.disconnect(); }
+    });
+    obs.observe(counter);
+  });
+})();
 
-        loginBtnTop.addEventListener('click', openLoginModal);
-        loginModalClose.addEventListener('click', closeLoginModalFn);
-        closeLoginModal.addEventListener('click', closeLoginModalFn);
-        loginModal.addEventListener('click', (e) => { if (e.target === loginModal) closeLoginModalFn(); });
+/* ------------------------------
+   Login modal (Google Form)
+   ------------------------------ */
+const loginBtnTop = document.getElementById('loginBtnTop');
+const loginModal = document.getElementById('loginModal');
+const loginModalClose = document.getElementById('loginModalClose');
+const closeLoginModal = document.getElementById('closeLoginModal');
+const confirmSubmittedBtn = document.getElementById('confirmSubmittedBtn');
 
-        // When the user clicks "I submitted the form", mark logged in (client-side).
-        confirmSubmittedBtn.addEventListener('click', () => {
-            // Set local flag that user completed sign-up form (client-side)
-            localStorage.setItem('apj_loggedIn', 'true');
-            closeLoginModalFn();
-            applyLoginState();
-            alert('Thank you — you are now signed in for this browser session.');
-        });
+function openLoginModal(){ loginModal.classList.add('show'); loginModal.setAttribute('aria-hidden','false'); }
+function closeLoginModalFn(){ loginModal.classList.remove('show'); loginModal.setAttribute('aria-hidden','true'); }
 
-        // -----------------------------
-        // Lock/Unlock buy and alt buttons depending on login state
-        // -----------------------------
-        function applyLoginState() {
-            const loggedIn = localStorage.getItem('apj_loggedIn') === 'true';
-            const buyButtons = document.querySelectorAll('.buy-button, .alt-button');
-            buyButtons.forEach(btn => {
-                if (!loggedIn) {
-                    btn.classList.add('locked');
-                    // intercept clicks: open login modal
-                    btn.addEventListener('click', redirectToLoginIfLocked);
-                } else {
-                    btn.classList.remove('locked');
-                    btn.removeEventListener('click', redirectToLoginIfLocked);
-                }
-            });
-        }
+loginBtnTop.addEventListener('click', openLoginModal);
+loginModalClose.addEventListener('click', closeLoginModalFn);
+closeLoginModal.addEventListener('click', closeLoginModalFn);
+loginModal.addEventListener('click', (e)=> { if(e.target===loginModal) closeLoginModalFn(); });
 
-        function redirectToLoginIfLocked(e) {
-            // If button has locked class, prevent default and open login modal
-            if (e.currentTarget.classList.contains('locked')) {
-                e.preventDefault();
-                openLoginModal();
-            }
-        }
+// confirm submitted: set local logged in flag
+confirmSubmittedBtn.addEventListener('click', ()=>{
+  localStorage.setItem('apj_loggedIn','true');
+  closeLoginModalFn();
+  applyLoginState();
+  alert('Thank you — you are now signed in for this browser session.');
+});
 
-        // run on load
-        applyLoginState();
+/* ------------------------------
+   Lock/unlock buy buttons
+   ------------------------------ */
+function applyLoginState(){
+  const loggedIn = localStorage.getItem('apj_loggedIn') === 'true';
+  const buyButtons = document.querySelectorAll('.buy-button');
+  buyButtons.forEach(btn=>{
+    if(!loggedIn){
+      btn.classList.add('locked');
+      btn.addEventListener('click', redirectToLoginIfLocked);
+    } else {
+      btn.classList.remove('locked');
+      btn.removeEventListener('click', redirectToLoginIfLocked);
+    }
+  });
+}
+function redirectToLoginIfLocked(e){
+  if(e.currentTarget.classList.contains('locked')){
+    e.preventDefault();
+    openLoginModal();
+  }
+}
+document.addEventListener('DOMContentLoaded', applyLoginState);
 
-        // -----------------------------
-        // Settings dropdown, language selection, logout
-        // -----------------------------
-        const settingsBtn = document.getElementById('settingsBtn');
-        const settingsDropdown = document.getElementById('settingsDropdown');
-        const langList = document.getElementById('langList');
-        const logoutBtn = document.getElementById('logoutBtn');
+/* ------------------------------
+   Settings dropdown, language, logout
+   ------------------------------ */
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsDropdown = document.getElementById('settingsDropdown');
+settingsBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  settingsDropdown.classList.toggle('show');
+});
+document.addEventListener('click', e => {
+  if(!e.target.closest('#settingsDropdown') && !e.target.closest('#settingsBtn')){
+    settingsDropdown.classList.remove('show');
+  }
+});
+document.querySelectorAll('.lang-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const lang = btn.getAttribute('data-lang');
+    localStorage.setItem('apj_lang', lang);
+    document.documentElement.lang = lang;
+    btn.textContent = btn.textContent + ' ✓';
+    setTimeout(()=> btn.textContent = btn.textContent.replace(' ✓',''),900);
+  });
+});
+document.getElementById('logoutBtn').addEventListener('click', ()=>{
+  localStorage.removeItem('apj_loggedIn');
+  applyLoginState();
+  settingsDropdown.classList.remove('show');
+  alert('You have been logged out.');
+  location.reload();
+});
+(function(){ const lang = localStorage.getItem('apj_lang'); if(lang) document.documentElement.lang = lang; })();
 
-        settingsBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            settingsDropdown.classList.toggle('show');
-        });
+/* ------------------------------
+   Simple search logic (kept original style)
+   ------------------------------ */
+const searchData = [
+  { title: 'Basic Plan Subscription', price: '₹199/month', type: 'subscription', plan: 'basic' },
+  { title: 'Premium Plan Subscription', price: '₹499/month', type: 'subscription', plan: 'premium' },
+  { title: 'Premium Plus Subscription', price: '₹999/month', type: 'subscription', plan: 'premium-plus' },
+  { title: 'Enterprise Plan Subscription', price: '₹1999/month', type: 'subscription', plan: 'enterprise' },
+  { title: 'Telegram Channel Access', price: 'From ₹199', type: 'service', plan: 'basic' },
+  { title: 'WhatsApp Group Support', price: 'From ₹499', type: 'service', plan: 'premium' },
+  { title: 'VIP Content Access', price: '₹999/month', type: 'service', plan: 'premium-plus' },
+  { title: 'Custom Content Creation', price: '₹1999/month', type: 'service', plan: 'enterprise' }
+];
+const searchInput = document.getElementById('searchInput');
+let searchTimeout = null;
+searchInput.addEventListener('input', function(){
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(()=> {
+    const q = this.value.toLowerCase().trim();
+    // for now keep simple; no dropdown displayed to avoid extra elements
+  },150);
+});
+function performSearch(){ const ev = new Event('input'); searchInput.dispatchEvent(ev); }
 
-        // Close settings on outside click
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('#settingsDropdown') && !e.target.closest('#settingsBtn')) {
-                settingsDropdown.classList.remove('show');
-            }
-        });
+/* ------------------------------
+   Reviews data generation (120 dummy entries)
+   ------------------------------ */
+const sampleFirst = ['Rahul','Priya','Aman','Meena','Sonal','Vikram','Neha','Ravi','Anjali','Karan','Nisha','Suresh','Pooja','Amit','Ritu','Deepak','Tanu','Isha','Manish','Rohan','Sana','Kabir','Maya','Arjun','Simran','Aditya','Rakesh','Anita','Rekha','Priya','Vivek','Kriti','Shiv','Gauri','Yash','Abeer','Farah','Rhea','Imran','Sahil','Tarun','Mona','Lalit','Punit','Kavya','Nayan','Zoya','Harsh','Rhea','Dev','Leena','Irfan','Jaya','Ritika','Kamal','Suman','Neeraj','Biplab','Ojas','Rashmi','Sheetal','Tara','Yuvraaj','Bhavya','Golu','Mili','Rinku','Nitin','Priyanka','Ashok','Bhavana','Chirag','Diksha','Esha','Faiz','Gautam','Hina','Ila','Jatin','Kiran','Lata','Mukul','Nandini','Om','Poonam','Qasim','Radhika','Sarita','Tanya','Uday','Vandana','Waseem','Xenia','Yogesh','Zain','Aaliya','Bina','Charu','Dia','Ekta','Farhan','Gina','Hiral','Indu','Jiya','Keshav'];
+const emojis = ['😍','🔥','😊','✨','👍','💯','🙏','🤩','👏','⭐'];
+function randomRating(){ return (Math.random()*0.6 + 4.4).toFixed(1); } // ~4.4 - 5.0 (avg ~4.7)
+function makeName(i){ return sampleFirst[i % sampleFirst.length] + (Math.random()<0.12 ? ' ' + (Math.floor(Math.random()*90)+10) : ''); }
 
-        // Language buttons
-        langList.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const lang = btn.getAttribute('data-lang');
-                // save choice
-                localStorage.setItem('apj_lang', lang);
-                // Apply quickly by setting html lang attribute
-                document.documentElement.lang = lang;
-                // Optional: show a tiny toast
-                btn.textContent = btn.textContent + ' ✓';
-                setTimeout(() => {
-                    // remove check after 900ms for UX
-                    btn.textContent = btn.textContent.replace(' ✓','');
-                }, 900);
-            });
-        });
+// build initial review list (array)
+let reviews = JSON.parse(localStorage.getItem('apj_reviews') || '[]');
+if(reviews.length === 0){
+  // generate 120 dummy reviews
+  const generated = [];
+  for(let i=0;i<120;i++){
+    const name = makeName(i);
+    const rating = parseFloat(randomRating());
+    const avatarId = (i % 70) + 1; // pravatar supports many ids
+    const avatar = 'https://i.pravatar.cc/150?img=' + avatarId;
+    const emoji = emojis[i % emojis.length];
+    const texts = [
+      "Amazing service! " + emoji,
+      "Really helped me a lot. " + emoji,
+      "High quality content and support. " + emoji,
+      "Recommended to friends! " + emoji,
+      "Great value for money. " + emoji,
+      "Very satisfied with the guidance. " + emoji
+    ];
+    const text = texts[i % texts.length];
+    generated.push({ name, rating, avatar, text });
+  }
+  // save to localStorage as initial baseline
+  localStorage.setItem('apj_reviews', JSON.stringify(generated));
+  reviews = generated;
+} else {
+  // ensure many items for carousel if user already has some
+  // keep as is
+}
 
-        // Logout button clears session flags
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('apj_loggedIn');
-            // optionally keep language choice but you can clear it if you want
-            // localStorage.removeItem('apj_lang');
-            applyLoginState();
-            settingsDropdown.classList.remove('show');
-            alert('You have been logged out.');
-            // refresh the page to reflect logout
-            location.reload();
-        });
+/* ------------------------------
+   Render carousel items
+   ------------------------------ */
+const carouselTrack = document.getElementById('carouselTrack');
 
-        // On load, apply stored language preference
-        (function applyStoredLang() {
-            const lang = localStorage.getItem('apj_lang');
-            if (lang) document.documentElement.lang = lang;
-        })();
+function buildCardHTML(review){
+  const starsFull = Math.floor(review.rating);
+  const half = (review.rating - starsFull) >= 0.5;
+  let stars = '';
+  for(let i=0;i<5;i++){
+    if(i < starsFull) stars += '★';
+    else if(i === starsFull && half) stars += '★';
+    else stars += '☆';
+  }
+  const emojisDisplay = (Math.random()<0.6) ? (['😍','🔥','😊','✨','👍'][Math.floor(Math.random()*5)]) : '';
+  return `
+    <article class="review-card" role="article" aria-label="Review by ${escapeHtml(review.name)}">
+      <div class="review-top">
+        <div class="avatar"><img src="${escapeHtml(review.avatar)}" alt="${escapeHtml(review.name)}"></div>
+        <div style="flex:1">
+          <div class="r-name">${escapeHtml(review.name)}</div>
+          <div class="r-meta"><span class="r-stars">${stars}</span> <span style="color:#777;font-weight:700"> ${parseFloat(review.rating).toFixed(1)}</span></div>
+        </div>
+      </div>
+      <div class="r-text">${escapeHtml(review.text)}</div>
+      <div class="r-emojis">${emojisDisplay}</div>
+    </article>
+  `;
+}
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]}); }
 
-        // -----------------------------
-        // Review modal logic
-        // -----------------------------
-        const openReviewBtn = document.getElementById('openReviewBtn');
-        const reviewModal = document.getElementById('reviewModal');
-        const reviewModalClose = document.getElementById('reviewModalClose');
-        const cancelReview = document.getElementById('cancelReview');
-        const submitReview = document.getElementById('submitReview');
-        const ratingStars = document.getElementById('ratingStars');
-        const reviewText = document.getElementById('reviewText');
-        const reviewSavedMsg = document.getElementById('reviewSavedMsg');
+function renderCarousel(){
+  reviews = JSON.parse(localStorage.getItem('apj_reviews') || '[]');
+  // to create smooth infinite feel, we'll duplicate items twice (track will have many)
+  const html = reviews.map(r => buildCardHTML(r)).join('');
+  // duplicate to make a long track for continuous scroll feel
+  carouselTrack.innerHTML = html + html;
+}
+renderCarousel();
 
-        let currentRating = 3.5; // default visual
-        // initialize stars visual (hover/click)
-        function renderStars(value) {
-            const stars = ratingStars.querySelectorAll('span');
-            stars.forEach(s => {
-                const v = parseInt(s.getAttribute('data-value'));
-                if (value >= v) s.textContent = '★';
-                else if (value > v - 1 && value < v) s.textContent = '★'; // for half-star visuals, keep filled
-                else s.textContent = '☆';
-            });
-        }
-        // populate initial as 3.5 (we'll show 3 filled, 1 filled partially visually already above)
-        renderStars(3);
+/* ------------------------------
+   Carousel auto-scroll / controls
+   ------------------------------ */
+let trackPos = 0;
+let itemWidth = 236; // approximate card width + gap; adjust on resize
+function updateItemWidth(){
+  // compute based on first child
+  const first = carouselTrack.querySelector('.review-card');
+  if(first){
+    const style = getComputedStyle(first);
+    const w = first.offsetWidth + parseInt(style.marginRight || 12);
+    itemWidth = Math.max(200, w + 12);
+  }
+}
+updateItemWidth();
+window.addEventListener('resize', updateItemWidth);
 
-        ratingStars.addEventListener('click', (e) => {
-            if (e.target && e.target.dataset && e.target.dataset.value) {
-                const v = parseInt(e.target.dataset.value);
-                currentRating = v;
-                renderStars(v);
-            }
-        });
+let autoScrollId = null;
+const msPerPixel = 8; // speed adjust (lower = faster)
+function startAutoScroll(){
+  stopAutoScroll();
+  autoScrollId = setInterval(()=> {
+    trackPos += 1; // move by 1px
+    carouselTrack.style.transform = `translateX(${-trackPos}px)`;
+    // reset when scrolled half (because we duplicated the list)
+    const trackWidth = carouselTrack.scrollWidth / 2;
+    if(trackPos >= trackWidth) trackPos = 0;
+  }, Math.max(10, msPerPixel));
+}
+function stopAutoScroll(){ if(autoScrollId) { clearInterval(autoScrollId); autoScrollId = null; } }
+startAutoScroll();
 
-        openReviewBtn.addEventListener('click', () => {
-            reviewModal.classList.add('show');
-            reviewModal.setAttribute('aria-hidden','false');
-        });
-        reviewModalClose.addEventListener('click', () => {
-            reviewModal.classList.remove('show');
-            reviewModal.setAttribute('aria-hidden','true');
-            clearReviewForm();
-        });
-        cancelReview.addEventListener('click', () => {
-            reviewModal.classList.remove('show');
-            reviewModal.setAttribute('aria-hidden','true');
-            clearReviewForm();
-        });
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+prevBtn.addEventListener('click', ()=>{
+  // move back by one card
+  trackPos = Math.max(0, trackPos - itemWidth);
+  carouselTrack.style.transform = `translateX(${-trackPos}px)`;
+});
+nextBtn.addEventListener('click', ()=>{
+  trackPos = trackPos + itemWidth;
+  carouselTrack.style.transform = `translateX(${-trackPos}px)`;
+});
 
-        function clearReviewForm() {
-            reviewText.value = '';
-            currentRating = 3.5;
-            renderStars(3);
-            reviewSavedMsg.style.display = 'none';
-        }
+// pause on hover
+const carouselViewport = document.querySelector('.carousel-viewport');
+carouselViewport.addEventListener('mouseenter', ()=> stopAutoScroll());
+carouselViewport.addEventListener('mouseleave', ()=> startAutoScroll());
 
-        submitReview.addEventListener('click', () => {
-            const text = reviewText.value.trim();
-            // save to localStorage (frontend only) with timestamp
-            const reviews = JSON.parse(localStorage.getItem('apj_reviews') || '[]');
-            reviews.unshift({ rating: currentRating, text: text, date: new Date().toISOString() });
-            localStorage.setItem('apj_reviews', JSON.stringify(reviews));
-            reviewSavedMsg.style.display = 'block';
-            setTimeout(() => {
-                reviewSavedMsg.style.display = 'none';
-                reviewModal.classList.remove('show');
-                reviewModal.setAttribute('aria-hidden','true');
-                clearReviewForm();
-            }, 900);
-        });
+/* ------------------------------
+   Review modal (submit) behavior
+   ------------------------------ */
+const openReviewBtn = document.getElementById('openReviewBtn');
+const reviewModal = document.getElementById('reviewModal');
+const reviewModalClose = document.getElementById('reviewModalClose');
+const cancelReview = document.getElementById('cancelReview');
+const submitReview = document.getElementById('submitReview');
+const reviewerName = document.getElementById('reviewerName');
+const reviewMessage = document.getElementById('reviewMessage');
+const ratingInput = document.getElementById('ratingInput');
+const reviewSavedMsg = document.getElementById('reviewSavedMsg');
 
-        // -----------------------------
-        // Ensure links that refer to Google Form that open in new tab keep working.
-        // But Buy buttons are locked/unlocked based on login state applied earlier
-        // -----------------------------
-        // Re-run applyLoginState on page load to attach handlers
-        document.addEventListener('DOMContentLoaded', () => {
-            applyLoginState();
-        });
+function openReviewModal(){ reviewModal.classList.add('show'); reviewModal.setAttribute('aria-hidden','false'); }
+function closeReviewModal(){ reviewModal.classList.remove('show'); reviewModal.setAttribute('aria-hidden','true'); clearReviewFields(); }
 
-        // Accessibility: close modals on Esc
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (loginModal.classList.contains('show')) closeLoginModalFn();
-                if (reviewModal.classList.contains('show')) { reviewModal.classList.remove('show'); reviewModal.setAttribute('aria-hidden','true'); }
-            }
-        });
+openReviewBtn.addEventListener('click', openReviewModal);
+reviewModalClose.addEventListener('click', closeReviewModal);
+cancelReview.addEventListener('click', closeReviewModal);
+reviewModal.addEventListener('click', (e)=> { if(e.target===reviewModal) closeReviewModal(); });
 
-        // small helper: prevent default for locked anchors that have target _blank
-        document.querySelectorAll('a.buy-button, a.alt-button').forEach(a => {
-            a.addEventListener('click', (ev) => {
-                if (a.classList.contains('locked')) {
-                    ev.preventDefault();
-                    openLoginModal();
-                }
-            });
-        });
-    </script>
+let chosenRating = 5;
+ratingInput.querySelectorAll('span').forEach(span=>{
+  span.addEventListener('click', ()=> {
+    chosenRating = parseInt(span.getAttribute('data-value'));
+    ratingInput.querySelectorAll('span').forEach(s => s.textContent = (parseInt(s.getAttribute('data-value')) <= chosenRating ? '★' : '☆'));
+  });
+});
+// default set 5
+ratingInput.querySelectorAll('span').forEach((s,i)=> s.textContent = (i < 5 ? '☆' : '☆'));
+
+function clearReviewFields(){
+  reviewerName.value = '';
+  reviewMessage.value = '';
+  chosenRating = 5;
+  ratingInput.querySelectorAll('span').forEach((s,i)=> s.textContent = '☆');
+  reviewSavedMsg.style.display = 'none';
+}
+
+submitReview.addEventListener('click', ()=>{
+  const name = (reviewerName.value || 'Anonymous').trim();
+  const text = (reviewMessage.value || 'Great experience!').trim();
+  const rating = chosenRating || 5;
+  const avatar = 'https://i.pravatar.cc/150?img=' + (Math.floor(Math.random()*70) + 1);
+  const reviewObj = { name, rating, avatar, text };
+  const arr = JSON.parse(localStorage.getItem('apj_reviews') || '[]');
+  arr.unshift(reviewObj);
+  localStorage.setItem('apj_reviews', JSON.stringify(arr));
+  reviews = arr;
+  renderCarousel();
+  reviewSavedMsg.style.display = 'block';
+  setTimeout(()=> { reviewSavedMsg.style.display = 'none'; closeReviewModal(); }, 900);
+});
+
+/* ------------------------------
+   Keep reviews updated if stored from before (re-render)
+   ------------------------------ */
+window.addEventListener('storage', (e)=>{
+  if(e.key === 'apj_reviews'){ renderCarousel(); }
+});
+
+/* ------------------------------
+   Accessibility: ESC to close modals
+   ------------------------------ */
+document.addEventListener('keydown', (e)=> {
+  if(e.key === 'Escape'){
+    if(loginModal.classList.contains('show')) closeLoginModalFn();
+    if(reviewModal.classList.contains('show')) closeReviewModal();
+  }
+});
+
+/* ------------------------------
+   Utility: re-render carousel when page resumed / load
+   ------------------------------ */
+window.addEventListener('focus', ()=> renderCarousel());
+
+</script>
 </body>
 </html>
