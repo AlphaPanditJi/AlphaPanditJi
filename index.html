@@ -1,436 +1,614 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alpha Pandit Ji - Premium Subscription Plans</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #00d4ff;
-            --secondary: #6366f1;
-            --accent: #ec4899;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            color: var(--dark);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-            animation: fadeInDown 1s ease;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            padding: 8px 20px;
-            border-radius: 50px;
-            margin-top: 15px;
-            font-weight: bold;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .plans-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .plan-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 1s ease;
-        }
-
-        .plan-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-        }
-
-        .plan-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-        }
-
-        .plan-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: var(--secondary);
-        }
-
-        .plan-price {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--accent);
-            margin: 20px 0;
-        }
-
-        .plan-price span {
-            font-size: 1.5rem;
-            color: #64748b;
-        }
-
-        .plan-duration {
-            color: #64748b;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-
-        .features {
-            text-align: left;
-            margin: 30px 0;
-        }
-
-        .feature {
-            padding: 12px 0;
-            border-bottom: 1px solid #e2e8f0;
-            color: #475569;
-            font-size: 1rem;
-        }
-
-        .feature:before {
-            content: '✓';
-            color: #10b981;
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
-        }
-
-        .cta-button:active {
-            transform: scale(0.98);
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: 20px;
-            right: -35px;
-            background: linear-gradient(135deg, #f59e0b, #ef4444);
-            color: white;
-            padding: 8px 50px;
-            transform: rotate(45deg);
-            font-weight: bold;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .info-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 1.5s ease;
-        }
-
-        .info-section h2 {
-            color: var(--secondary);
-            margin-bottom: 20px;
-            font-size: 2rem;
-        }
-
-        .payment-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .detail-box {
-            background: #f1f5f9;
-            padding: 20px;
-            border-radius: 15px;
-            border-left: 5px solid var(--secondary);
-        }
-
-        .detail-label {
-            font-weight: bold;
-            color: var(--secondary);
-            margin-bottom: 8px;
-        }
-
-        .detail-value {
-            font-size: 1.1rem;
-            color: #334155;
-            font-family: 'Courier New', monospace;
-        }
-
-        .telegram-links {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .telegram-btn {
-            background: #0088cc;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 136, 204, 0.4);
-        }
-
-        .telegram-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 136, 204, 0.6);
-        }
-
-        .footer {
-            text-align: center;
-            color: white;
-            padding: 30px;
-            margin-top: 50px;
-        }
-
-        .footer p {
-            margin: 10px 0;
-            opacity: 0.9;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .plan-card {
-                padding: 30px 20px;
-            }
-
-            .plan-price {
-                font-size: 2.5rem;
-            }
-
-            .info-section {
-                padding: 25px;
-            }
-        }
-    </style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>HolaTube — Affiliate & Earnings Hub</title>
+  <link rel="icon" href="https://i.ibb.co/HTmgqXLh/Picsart-25-11-04-05-36-14-228.png">
+  <meta name="theme-color" content="#D4AF37"/>
+  <style>
+    :root{--brand:#D4AF37;--accent:#00c46a;--muted:#666;--card:#fff}
+    *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Poppins',sans-serif}
+    body{margin:0;background:linear-gradient(180deg,#fff,#fbf6ee);color:#111;-webkit-font-smoothing:antialiased}
+    .top-banner{background:linear-gradient(90deg,#fff3cd,#fff8e1);color:#111;text-align:center;padding:10px 12px;font-weight:800;border-bottom:3px solid rgba(212,175,55,0.12)}
+    .container{max-width:1100px;margin:20px auto;padding:16px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:64px;height:64px;border-radius:12px}
+    .brand h1{margin:0;color:var(--brand);font-weight:900}
+    .brand p{margin:0;color:var(--muted);font-size:0.9rem}
+    .controls{display:flex;gap:8px;align-items:center}
+    .btn{background:var(--brand);border:none;padding:10px 14px;border-radius:999px;color:#111;font-weight:800;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid #eee}
+    .hero{display:flex;gap:20px;align-items:center;margin-top:18px;padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(212,175,55,0.05),#fff);box-shadow:0 10px 30px rgba(212,175,55,0.04)}
+    .hero-left{flex:1}
+    .stats{display:flex;gap:10px;margin-top:12px}
+    .stat{background:var(--card);padding:10px;border-radius:10px;min-width:110px;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,0.04)}
+    .grid{display:grid;grid-template-columns:1fr 380px;gap:16px;margin-top:18px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.04)}
+    input[type=text],input[type=email],select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #eee}
+    .form-row{display:flex;gap:8px}
+    .links .link-item{display:flex;align-items:center;justify-content:space-between;padding:10px;border-radius:8px;border:1px solid #f3f3f3;margin-top:8px;gap:8px}
+    .wallet .bal{font-weight:900;color:#0b6b3a;font-size:1.2rem}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:2000;padding:12px}
+    .modal{background:#fff;padding:16px;border-radius:10px;max-width:520px;width:100%}
+    .blocker{position:fixed;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.6));display:none;align-items:center;justify-content:center;z-index:1500;padding:16px}
+    .blocker .box{background:#fff;padding:16px;border-radius:10px;text-align:center;max-width:480px}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>🕉️ Alpha Pandit Ji</h1>
-            <p>Premium Spiritual Content & Exclusive Access</p>
-            <div class="badge">🇮🇳 Made in India</div>
+  <!-- Top banner -->
+  <div class="top-banner">
+    ⚡ Important — HolaTube automatically deducts <strong>30%</strong> from normal users' affiliate earnings and <strong>25%</strong> from Premium Plus members' affiliate earnings. ⚡
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <img src="https://i.ibb.co/HTmgqXLh/Picsart-25-11-04-05-36-14-228.png" alt="logo">
+        <div>
+          <h1>HolaTube</h1>
+          <p>All-in-One Affiliate & Earnings Hub</p>
+        </div>
+      </div>
+
+      <div class="controls" id="topControls">
+        <div id="userEmailDisplay" style="font-weight:700;color:var(--muted)"></div>
+        <button id="btnLogin" class="btn ghost">Login / Sign up</button>
+        <button id="btnLogout" class="btn" style="display:none">Logout</button>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-left">
+        <h2>Start Earning — Launch Offer ₹99</h2>
+        <p style="color:var(--muted)">Subscribe, generate affiliate links, share on social media. Purchases via your affiliate link credit your HolaTube wallet (platform cut applied automatically).</p>
+        <div style="margin-top:12px">
+          <!-- Instamojo links set as given by you -->
+          <button id="subscribe99" class="btn">Subscribe ₹99 (Launch)</button>
+          <button id="subscribe299" class="btn ghost" style="margin-left:8px">Subscribe ₹299 (Premium Plus)</button>
+          <button id="howItWorks" class="btn ghost" style="margin-left:8px">How it works</button>
         </div>
 
-        <!-- Pricing Plans -->
-        <div class="plans-container">
-            <!-- Basic Plan -->
-            <div class="plan-card">
-                <div class="plan-name">Basic Plan</div>
-                <div class="plan-price">₹199 <span>/7 Days</span></div>
-                <div class="plan-duration">Weekly Access</div>
-                <div class="features">
-                    <div class="feature">Public Telegram Access</div>
-                    <div class="feature">Basic Content Updates</div>
-                    <div class="feature">Community Support</div>
-                    <div class="feature">7 Days Validity</div>
-                </div>
-                <button class="cta-button" onclick="openPaymentForm('basic')">Pay Now ₹199</button>
-            </div>
+        <div class="stats">
+          <div class="stat"><div style="font-weight:900">5000+</div><div style="color:var(--muted)">Happy Members</div></div>
+          <div class="stat"><div style="font-weight:900">10000+</div><div style="color:var(--muted)">Downloads</div></div>
+          <div class="stat"><div style="font-weight:900">50+</div><div style="color:var(--muted)">Premium Tools</div></div>
+        </div>
+      </div>
 
-            <!-- Premium Plan (Popular) -->
-            <div class="plan-card">
-                <div class="popular-badge">POPULAR</div>
-                <div class="plan-name">Premium Plan</div>
-                <div class="plan-price">₹999 <span>/Month</span></div>
-                <div class="plan-duration">1 Month Access</div>
-                <div class="features">
-                    <div class="feature">Premium Telegram Channel</div>
-                    <div class="feature">Exclusive Content Daily</div>
-                    <div class="feature">Priority Support</div>
-                    <div class="feature">WhatsApp Updates</div>
-                    <div class="feature">30 Days Validity</div>
-                </div>
-                <button class="cta-button" onclick="openPaymentForm('premium')">Pay Now ₹999</button>
-            </div>
+      <div style="width:140px;text-align:center">
+        <img src="https://i.ibb.co/HTmgqXLh/Picsart-25-11-04-05-36-14-228.png" alt="logo" style="width:120px;border-radius:10px">
+        <div style="color:var(--muted);font-size:0.9rem;margin-top:8px">Made with ❤️ in India</div>
+      </div>
+    </section>
 
-            <!-- Premium Plus Plan -->
-            <div class="plan-card">
-                <div class="plan-name">Premium Plus</div>
-                <div class="plan-price">₹9,999 <span>/Year</span></div>
-                <div class="plan-duration">1 Year Access</div>
-                <div class="features">
-                    <div class="feature">All Premium Features</div>
-                    <div class="feature">Personal Guidance</div>
-                    <div class="feature">1-on-1 Consultation</div>
-                    <div class="feature">Exclusive VIP Content</div>
-                    <div class="feature">365 Days Validity</div>
-                    <div class="feature">Lifetime Community Access</div>
-                </div>
-                <button class="cta-button" onclick="openPaymentForm('premium-plus')">Pay Now ₹9,999</button>
-            </div>
+    <!-- Main grid -->
+    <div class="grid">
+      <!-- Left column -->
+      <div>
+        <!-- Affiliate generator -->
+        <div class="card">
+          <h3>Affiliate Link Generator</h3>
+          <p style="color:var(--muted);font-size:0.95rem">Paste product URL, choose commission % (this is the seller share you expect). Generate link → share it.</p>
+
+          <div class="form-row" style="margin-top:10px">
+            <input id="productUrl" type="text" placeholder="Paste Flipkart / Amazon / other product link...">
+            <select id="commissionSelect" style="width:120px">
+              <option value="5">5%</option>
+              <option value="10" selected>10%</option>
+              <option value="15">15%</option>
+              <option value="20">20%</option>
+            </select>
+          </div>
+
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button id="btnGenerate" class="btn">Generate Link</button>
+            <button id="btnMyLinks" class="btn ghost">My Links</button>
+          </div>
+
+          <div id="genResult" style="margin-top:12px"></div>
+          <div id="linksList" class="links"></div>
+
+          <hr style="margin:12px 0">
+          <div style="color:var(--muted);font-size:0.95rem">
+            <strong>Test Mode:</strong> Since this is frontend-only, use the "Simulate Sale" button from any generated link entry to simulate a purchase and credit the wallet (for testing).
+          </div>
         </div>
 
-        <!-- Payment Information -->
-        <div class="info-section">
-            <h2>💳 Payment Details</h2>
-            <p style="color: #64748b; margin-bottom: 20px;">Please use the following details for payment. After payment, fill the form that opens when you click the button above.</p>
-            
-            <div class="payment-details">
-                <div class="detail-box">
-                    <div class="detail-label">Bank Name</div>
-                    <div class="detail-value">Prakash Sharma</div>
-                </div>
-                <div class="detail-box">
-                    <div class="detail-label">Account Number</div>
-                    <div class="detail-value">20360228347</div>
-                </div>
-                <div class="detail-box">
-                    <div class="detail-label">IFSC Code</div>
-                    <div class="detail-value">FINO0001157</div>
-                </div>
-                <div class="detail-box">
-                    <div class="detail-label">UPI ID</div>
-                    <div class="detail-value">jharsarchhotadham@finobank</div>
-                </div>
+        <!-- Content / stories placeholder -->
+        <div class="card" style="margin-top:12px">
+          <h3>Upload & Stories (Demo)</h3>
+          <p style="color:var(--muted)">Creators can later upload videos, photos & stories (backend required). For now this is a placeholder for future features.</p>
+          <button id="btnUpload" class="btn ghost">Upload Demo</button>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <aside>
+        <div class="card">
+          <h3>Your Wallet</h3>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+            <div>
+              <div style="color:var(--muted)">Available balance</div>
+              <div class="bal wallet-balance">₹0.00</div>
             </div>
+            <div style="text-align:right">
+              <div style="color:var(--muted)">Subscription</div>
+              <div id="subStatus" style="font-weight:800;color:#b36b00">Not Subscribed</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <div style="color:var(--muted);font-size:0.95rem">Withdraw (subscribed users only)</div>
+            <div class="form-row" style="margin-top:8px">
+              <input id="withdrawAmt" type="text" placeholder="Amount ₹">
+              <select id="withdrawMode" style="width:120px">
+                <option value="UPI">UPI</option>
+                <option value="BANK">Bank</option>
+              </select>
+            </div>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <button id="btnWithdraw" class="btn">Request Withdraw</button>
+              <button id="btnViewWithdraws" class="btn ghost">View Requests</button>
+            </div>
+            <div id="withdrawMsg" style="margin-top:8px;color:var(--muted)"></div>
+          </div>
+
+          <div style="margin-top:12px">
+            <h4 style="margin:0 0 8px 0">Quick Links</h4>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <a href="https://t.me/AlphaPanditJiApp" target="_blank" class="btn ghost">Telegram</a>
+              <a href="https://www.instagram.com/alphapanditjiofficial" target="_blank" class="btn ghost">Instagram</a>
+              <a href="https://youtube.com/@alphapanditji" target="_blank" class="btn ghost">YouTube</a>
+            </div>
+          </div>
         </div>
 
-        <!-- Telegram Links -->
-        <div class="info-section">
-            <h2>📱 Join Our Community</h2>
-            <div class="telegram-links">
-                <a href="https://t.me/AlphaPanditJiApp" class="telegram-btn" target="_blank">📢 Public Telegram</a>
-                <a href="https://whatsapp.com/channel/0029VazKdef77qp6TT4r411X" class="telegram-btn" target="_blank" style="background: #25d366;">📱 WhatsApp Channel</a>
-            </div>
+        <div class="card" style="margin-top:12px">
+          <h3>Platform Rules</h3>
+          <ul style="color:var(--muted);padding-left:18px;margin:6px 0 0 0">
+            <li>Platform cut: Normal users = <strong>30%</strong>, Premium Plus = <strong>25%</strong>.</li>
+            <li>Subscription validity: <strong>1 month</strong></li>
+            <li>Withdrawals require admin approval (simulated here).</li>
+          </ul>
         </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p><strong>Alpha Pandit Ji - Spiritual Content Creator</strong></p>
-            <p>For any queries, contact us via Telegram</p>
-            <p>&copy; 2025 Alpha Pandit Ji. All Rights Reserved.</p>
-            <p style="font-size: 0.9rem; margin-top: 20px;">🇮🇳 Proudly Made in India</p>
-        </div>
+      </aside>
     </div>
 
-    <script>
-        function openPaymentForm(plan) {
-            // Google Form Link
-            const formLink = 'https://docs.google.com/forms/d/e/1FAIpQLSciLA2M3H1XVJdVWmbWKhpuwZgLLRIUMAkArIVRHH7u-zoLEg/viewform?usp=dialog';
-            
-            // Open form in new tab
-            window.open(formLink, '_blank');
-            
-            // Optional: Show confirmation message
-            setTimeout(() => {
-                alert('✅ Payment form opened!
+    <footer style="text-align:center;color:var(--muted);margin-top:18px">
+      © 2025 HolaTube · Made with ❤️ in India
+    </footer>
+  </div>
 
-📝 Please fill all details and upload payment screenshot.
+  <!-- Auth modal -->
+  <div class="overlay" id="authModal">
+    <div class="modal">
+      <h3 id="authTitle">Login / Sign up</h3>
+      <div id="authForm">
+        <input id="authName" type="text" placeholder="Your name (for signup)">
+        <input id="authEmail" type="email" placeholder="Email (required)">
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
+          <button id="authCancel" class="btn ghost">Cancel</button>
+          <button id="authSubmit" class="btn">Submit</button>
+        </div>
+        <div id="authMsg" style="margin-top:8px;color:var(--muted)"></div>
+      </div>
+    </div>
+  </div>
 
-💬 You will receive access link via Telegram/WhatsApp after verification.');
-            }, 500);
-        }
-    </script>
+  <!-- Blocker (forces subscription) -->
+  <div class="blocker" id="subBlocker">
+    <div class="box">
+      <h3>Account & Subscription Required</h3>
+      <p style="color:var(--muted)">You must login and have an active subscription to use HolaTube features and withdraw earnings.</p>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:center">
+        <button id="openAuthBtn" class="btn ghost">Login / Sign up</button>
+        <button id="subscribeBlock99" class="btn">Subscribe ₹99</button>
+        <button id="subscribeBlock299" class="btn ghost">Subscribe ₹299</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Withdraw requests modal -->
+  <div class="overlay" id="withdrawModal">
+    <div class="modal">
+      <h3>Withdraw Requests</h3>
+      <div id="withdrawList" style="max-height:360px;overflow:auto;margin-top:10px"></div>
+      <div style="text-align:right;margin-top:10px"><button id="closeWithdrawModal" class="btn ghost">Close</button></div>
+    </div>
+  </div>
+
+  <!-- Admin panel modal (password protected) -->
+  <div class="overlay" id="adminModal">
+    <div class="modal">
+      <h3>Admin Panel (Demo)</h3>
+      <div style="margin-top:8px">
+        <div style="font-weight:700">Pending Withdraw Requests</div>
+        <div id="adminWithdraws" style="max-height:320px;overflow:auto;margin-top:8px"></div>
+      </div>
+      <div style="text-align:right;margin-top:10px"><button id="closeAdmin" class="btn ghost">Close</button></div>
+    </div>
+  </div>
+
+<script>
+/* ============================
+  CONFIG: Instamojo links set here
+   - You already provided these links:
+     Basic Plan (₹99): https://imjo.in/v8sXQG
+     Premium Plus (₹299): https://imjo.in/mKZYp9
+  ============================ */
+const INSTAMOJO_99 = 'https://imjo.in/v8sXQG';
+const INSTAMOJO_299 = 'https://imjo.in/mKZYp9';
+
+/* ============================
+  LocalStorage keys & helpers
+  ============================ */
+const LS_USER = 'holatube_user'; // current logged-in email
+const LS_USERS = 'holatube_users'; // user records
+const LS_LINKS = 'holatube_links'; // generated links
+const LS_WALLET = 'holatube_wallets'; // wallet balances object {email: amount}
+const LS_WITHDRAWS = 'holatube_withdraws'; // withdraw requests
+
+function now(){ return new Date().toISOString(); }
+function readJSON(k, def){ try{ return JSON.parse(localStorage.getItem(k)) || def }catch(e){ return def } }
+function writeJSON(k,v){ localStorage.setItem(k, JSON.stringify(v)); }
+
+/* ============================
+  Simple user system (localStorage)
+  Users keyed by email. Fields: name,email,subscribedUntil (ISO),tier ('basic'|'premium_plus' or null)
+  ============================ */
+function getCurrentEmail(){ return localStorage.getItem(LS_USER); }
+function setCurrentEmail(e){ if(e) localStorage.setItem(LS_USER,e); else localStorage.removeItem(LS_USER); updateUI(); }
+function getUsers(){ return readJSON(LS_USERS, []); }
+function saveUser(user){
+  const arr = getUsers(); const idx = arr.findIndex(u=>u.email===user.email);
+  if(idx>=0) arr[idx]=user; else arr.unshift(user);
+  writeJSON(LS_USERS, arr);
+}
+function getUser(email){ return getUsers().find(u=>u.email===email) || null; }
+
+/* ============================
+  Wallet functions
+  ============================ */
+function getWallets(){ return readJSON(LS_WALLET, {}); }
+function getBalance(email){ const w = getWallets(); return Number((w[email]||0).toFixed(2)); }
+function setBalance(email, amt){ const w=getWallets(); w[email]=Number((amt||0)); writeJSON(LS_WALLET,w); }
+function credit(email, amt, note){
+  const cur = getBalance(email); setBalance(email, Number((cur + Number(amt)).toFixed(2)));
+  // record tx in withdraws array as a tx with type 'credit' (for demo)
+  const txs = readJSON('holatube_txs_'+(email||''), []); txs.unshift({type:'credit',amount:Number(amt),note:note||'',createdAt:now()}); writeJSON('holatube_txs_'+email,txs);
+}
+function debit(email, amt, note){
+  const cur = getBalance(email); setBalance(email, Number((cur - Number(amt)).toFixed(2)));
+  const txs = readJSON('holatube_txs_'+(email||''), []); txs.unshift({type:'debit',amount:Number(amt),note:note||'',createdAt:now()}); writeJSON('holatube_txs_'+email,txs);
+}
+
+/* ============================
+  Links functions
+  ============================ */
+function getLinks(){ return readJSON(LS_LINKS, []); }
+function saveLink(link){ const arr=getLinks(); arr.unshift(link); writeJSON(LS_LINKS,arr); }
+
+/* ============================
+  Withdraw functions
+  ============================ */
+function getWithdraws(){ return readJSON(LS_WITHDRAWS, []); }
+function saveWithdraw(w){ const arr=getWithdraws(); arr.unshift(w); writeJSON(LS_WITHDRAWS,arr); }
+
+/* ============================
+  UI elements
+  ============================ */
+const btnLogin = document.getElementById('btnLogin');
+const btnLogout = document.getElementById('btnLogout');
+const userEmailDisplay = document.getElementById('userEmailDisplay');
+const authModal = document.getElementById('authModal');
+const authName = document.getElementById('authName');
+const authEmail = document.getElementById('authEmail');
+const authSubmit = document.getElementById('authSubmit');
+const authCancel = document.getElementById('authCancel');
+const authMsg = document.getElementById('authMsg');
+
+const subscribe99 = document.getElementById('subscribe99');
+const subscribe299 = document.getElementById('subscribe299');
+const subscribeBlock99 = document.getElementById('subscribeBlock99');
+const subscribeBlock299 = document.getElementById('subscribeBlock299');
+const subBlocker = document.getElementById('subBlocker');
+const openAuthBtn = document.getElementById('openAuthBtn');
+
+const btnGenerate = document.getElementById('btnGenerate');
+const genResult = document.getElementById('genResult');
+const linksList = document.getElementById('linksList');
+const btnMyLinks = document.getElementById('btnMyLinks');
+
+const walletBalanceEl = document.querySelector('.wallet-balance');
+const subStatus = document.getElementById('subStatus');
+
+const btnWithdraw = document.getElementById('btnWithdraw');
+const withdrawAmt = document.getElementById('withdrawAmt');
+const withdrawMode = document.getElementById('withdrawMode');
+const withdrawMsg = document.getElementById('withdrawMsg');
+const btnViewWithdraws = document.getElementById('btnViewWithdraws');
+const withdrawModal = document.getElementById('withdrawModal');
+const withdrawList = document.getElementById('withdrawList');
+const closeWithdrawModal = document.getElementById('closeWithdrawModal');
+
+const howItWorks = document.getElementById('howItWorks');
+const btnUpload = document.getElementById('btnUpload');
+
+/* Admin modal */
+const adminModal = document.getElementById('adminModal');
+const adminWithdraws = document.getElementById('adminWithdraws');
+const closeAdmin = document.getElementById('closeAdmin');
+
+/* Default admin password for demo */
+const ADMIN_PW = 'holatubeAdmin123';
+
+/* ========== Initialization & UI updates ========== */
+function updateUI(){
+  const email = getCurrentEmail();
+  if(email){
+    userEmailDisplay.textContent = email;
+    btnLogin.style.display='none'; btnLogout.style.display='inline-block';
+  } else {
+    userEmailDisplay.textContent = '';
+    btnLogin.style.display='inline-block'; btnLogout.style.display='none';
+  }
+
+  // wallet & subscription display
+  if(email){
+    walletBalanceEl.textContent = '₹' + getBalance(email).toFixed(2);
+    const user = getUser(email);
+    if(user && user.subscribedUntil && new Date(user.subscribedUntil) > new Date()){
+      subStatus.textContent = `${user.tier === 'premium_plus' ? 'Premium Plus' : 'Basic'} (valid till ${new Date(user.subscribedUntil).toLocaleDateString()})`;
+    } else {
+      subStatus.textContent = 'Not Subscribed';
+    }
+  } else {
+    walletBalanceEl.textContent = '₹0.00';
+    subStatus.textContent = 'Not Subscribed';
+  }
+
+  // enforce blocker: must be logged in and subscribed to use generator & withdraw
+  const allow = email && (() => {
+    const u = getUser(email); return u && u.subscribedUntil && new Date(u.subscribedUntil) > new Date();
+  })();
+  if(!allow){
+    subBlocker.style.display = 'flex';
+  } else subBlocker.style.display = 'none';
+}
+updateUI();
+
+/* ========== Auth flow (very simple) ========== */
+btnLogin.addEventListener('click', ()=> {
+  authModal.style.display='flex';
+  authMsg.textContent='';
+});
+authCancel.addEventListener('click', ()=> { authModal.style.display='none'; });
+authSubmit.addEventListener('click', ()=> {
+  const name = authName.value.trim() || 'User';
+  const email = authEmail.value.trim().toLowerCase();
+  if(!email){ authMsg.textContent = 'Email required'; return; }
+  // create user if not exists
+  let u = getUser(email);
+  if(!u){ u = { name, email, subscribedUntil: null, tier: null, createdAt: now() }; saveUser(u); }
+  setCurrentEmail(email);
+  authModal.style.display='none';
+  authName.value=''; authEmail.value='';
+  alert('Signed in as ' + email + ' (demo). Now please subscribe to unlock features.');
+  updateUI();
+});
+
+btnLogout.addEventListener('click', ()=> { setCurrentEmail(null); updateUI(); });
+
+openAuthBtn.addEventListener('click', ()=> { authModal.style.display='flex'; });
+
+/* ========== Subscription flow (demo) ==========
+ * Real flow: user pays using Instamojo, then webhook marks subscription active.
+ * Here: we open Instamojo link in new tab; after user completes payment you need to click "Confirm Payment" dialog (in this demo) to mark subscription active.
+ */
+subscribe99.addEventListener('click', ()=> window.open(INSTAMOJO_99,'_blank'));
+subscribe299.addEventListener('click', ()=> window.open(INSTAMOJO_299,'_blank'));
+subscribeBlock99.addEventListener('click', ()=> window.open(INSTAMOJO_99,'_blank'));
+subscribeBlock299.addEventListener('click', ()=> window.open(INSTAMOJO_299,'_blank'));
+
+document.addEventListener('keydown', (e)=> { if((e.ctrlKey||e.metaKey) && e.key==='m'){ adminPrompt(); } });
+
+// For demo: confirm payment button (to be clicked after actual Instamojo payment)
+function confirmDemoPayment(tier){
+  const email = getCurrentEmail();
+  if(!email){ alert('Please login first'); return; }
+  // set subscribedUntil = now + 30 days
+  const u = getUser(email); if(!u) return;
+  const days = 30; const until = new Date(); until.setDate(until.getDate() + days);
+  u.subscribedUntil = until.toISOString();
+  u.tier = (tier==='plus'? 'premium_plus' : 'basic');
+  saveUser(u);
+  alert('Subscription activated (demo): ' + u.tier + ' till ' + until.toLocaleDateString());
+  updateUI();
+}
+
+// Add a small floating confirm button for demo convenience (visible always)
+(function addConfirmBtn(){
+  const b = document.createElement('button'); b.textContent='Confirm Payment (Demo)';
+  Object.assign(b.style,{position:'fixed',right:'12px',bottom:'80px',padding:'10px',zIndex:9999,borderRadius:'10px',background:'#fff',border:'1px solid #ddd',cursor:'pointer'});
+  document.body.appendChild(b);
+  b.addEventListener('click', ()=>{
+    const tier = prompt('Confirm which plan did you pay? Enter 99 or 299');
+    if(tier==='99') confirmDemoPayment('basic'); else if(tier==='299') confirmDemoPayment('plus'); else alert('Enter 99 or 299');
+  });
+})();
+
+/* ========== Generate affiliate link (frontend-only) ========== */
+btnGenerate.addEventListener('click', ()=>{
+  const email = getCurrentEmail(); if(!email){ alert('Login required'); return; }
+  const u = getUser(email);
+  // check subscription
+  if(!u || !u.subscribedUntil || new Date(u.subscribedUntil) <= new Date()){ alert('Subscribe (₹99 or ₹299) to generate affiliate links'); return; }
+  const url = document.getElementById('productUrl').value.trim();
+  const pct = Number(document.getElementById('commissionSelect').value);
+  if(!url){ genResult.textContent='Paste product URL first'; return; }
+  // create a fake short link
+  const id = 'hl' + Math.random().toString(36).slice(2,9);
+  const generated = location.origin + '/a/' + id;
+  // Save link record
+  const link = { id, owner: email, productUrl: url, generatedLink: generated, commissionPercent: pct, createdAt: now(), sales: [] };
+  saveLink(link);
+  // show result
+  genResult.innerHTML = `<div style="padding:10px;border-radius:8px;background:#f6fff6">Generated: <a href="${generated}" target="_blank">${generated}</a>
+    <button style="margin-left:8px;padding:6px;border-radius:6px;border:none;background:var(--brand);cursor:pointer" onclick="copyText('${generated.replace(/'/g,'\\\\\\'')}')">Copy</button></div>`;
+  renderMyLinks();
+  document.getElementById('productUrl').value='';
+});
+
+function copyText(t){ navigator.clipboard.writeText(t); alert('Copied'); }
+
+/* Render links for current user with "Simulate Sale" button */
+function renderMyLinks(){
+  const email = getCurrentEmail();
+  if(!email){ linksList.innerHTML = '<div style="color:var(--muted)">Login to see your links</div>'; return; }
+  const all = getLinks().filter(l=>l.owner===email);
+  if(!all.length){ linksList.innerHTML = '<div style="color:var(--muted)">No links yet</div>'; return; }
+  linksList.innerHTML = all.map(l => {
+    const salesCount = l.sales ? l.sales.length : 0;
+    return `<div class="link-item">
+      <div style="flex:1"><div style="font-weight:700">${l.generatedLink}</div><div style="color:var(--muted);font-size:0.9rem">${l.productUrl}</div><div style="color:var(--muted);font-size:0.85rem">Commission%: ${l.commissionPercent} • Sales: ${salesCount}</div></div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button onclick="copyText('${l.generatedLink.replace(/'/g,'\\\\\\'')}')">Copy</button>
+        <button onclick="simulateSale('${l.id}')">Simulate Sale</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+btnMyLinks.addEventListener('click', renderMyLinks);
+
+/* Simulate a sale on a generated link (for testing) 
+   - We create a sale record with grossCommission amount (random or prompt)
+   - Apply platform cut depending on owner's tier: premium_plus => 25% cut, normal => 30% cut
+   - Credit user's wallet with remainder
+*/
+function simulateSale(linkId){
+  const link = getLinks().find(l=>l.id===linkId);
+  if(!link) return alert('Link not found');
+  const owner = link.owner;
+  // prompt for sale gross commission amount (INR)
+  const gross = Number(prompt('Enter gross commission amount for this sale (INR)', '100'));
+  if(isNaN(gross) || gross <= 0) return alert('Invalid amount');
+  const user = getUser(owner);
+  const tier = (user && user.tier==='premium_plus') ? 'premium_plus' : 'basic';
+  const cut = tier==='premium_plus' ? 0.25 : 0.30;
+  const platformCut = Number((gross * cut).toFixed(2));
+  const creditAmount = Number((gross - platformCut).toFixed(2));
+  // update link sales
+  link.sales = link.sales || [];
+  link.sales.unshift({ amount:gross, platformCut, creditAmount, createdAt: now() });
+  // save all links back
+  const all = getLinks().map(l=> l.id===link.id ? link : l );
+  writeJSON(LS_LINKS, all);
+  // credit user wallet
+  credit(owner, creditAmount, `Sale via link ${link.generatedLink}`);
+  alert(`Sale simulated. Gross ${gross} → platform cut ${platformCut} → credited ₹${creditAmount} to ${owner}`);
+  updateUI(); renderMyLinks();
+}
+
+/* ========== Withdraw request (frontend) ========== */
+btnWithdraw.addEventListener('click', ()=>{
+  const email = getCurrentEmail(); if(!email) return alert('Login required');
+  const user = getUser(email); if(!user || !user.subscribedUntil || new Date(user.subscribedUntil) <= new Date()) return alert('Subscribe to withdraw');
+  const amt = Number(withdrawAmt.value); if(isNaN(amt) || amt<=0) return withdrawMsg.textContent='Enter valid amount';
+  const bal = getBalance(email); if(amt > bal) return withdrawMsg.textContent='Insufficient balance';
+  // Deduct immediately (reserve)
+  debit(email, amt, 'Withdraw requested (reserved)');
+  const req = { id:'wd'+Date.now(), user:email, amount:amt, mode:withdrawMode.value, status:'pending', createdAt:now() };
+  saveWithdraw(req);
+  withdrawMsg.textContent = 'Withdraw request created (pending admin approval)';
+  withdrawAmt.value='';
+  updateUI();
+});
+
+/* View withdraw requests (user view) */
+btnViewWithdraws.addEventListener('click', ()=>{
+  const email = getCurrentEmail(); if(!email) return alert('Login required');
+  const all = getWithdraws().filter(w=> w.user === email);
+  withdrawList.innerHTML = all.length ? all.map(w=> `<div style="padding:8px;border-bottom:1px solid #f3f3f3"><strong>₹${w.amount}</strong> — ${w.mode} — <em>${w.status}</em><div style="color:var(--muted);font-size:0.9rem">${new Date(w.createdAt).toLocaleString()}</div></div>`).join('') : '<div style="color:var(--muted)">No withdraws</div>';
+  withdrawModal.style.display='flex';
+});
+closeWithdrawModal.addEventListener('click', ()=> withdrawModal.style.display='none');
+
+/* ========== Admin functions (simulate approval) ==========
+   For demo: press Ctrl/Cmd+M or call adminPrompt() to open admin panel
+*/
+function adminPrompt(){
+  const pw = prompt('Enter admin password (demo)');
+  if(pw !== ADMIN_PW) return alert('Wrong password');
+  renderAdminWithdraws();
+  adminModal.style.display='flex';
+}
+
+function renderAdminWithdraws(){
+  const pend = getWithdraws().filter(w=> w.status==='pending');
+  if(!pend.length) adminWithdraws.innerHTML = '<div style="color:var(--muted)">No pending withdraws</div>';
+  else adminWithdraws.innerHTML = pend.map(w=>{
+    return `<div style="padding:8px;border-bottom:1px solid #f3f3f3">
+      <div><strong>${w.user}</strong> — ₹${w.amount} — ${w.mode}</div>
+      <div style="margin-top:6px">
+        <button onclick="approveWithdraw('${w.id}')" style="margin-right:6px">Approve</button>
+        <button onclick="rejectWithdraw('${w.id}')">Reject</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function approveWithdraw(id){
+  const arr = getWithdraws();
+  const idx = arr.findIndex(x=>x.id===id); if(idx<0) return alert('Not found');
+  arr[idx].status='paid'; arr[idx].paidAt=now();
+  writeJSON(LS_WITHDRAWS, arr);
+  alert('Marked as paid. (In real system you must transfer money via UPI/Bank now)');
+  renderAdminWithdraws(); updateUI();
+}
+
+function rejectWithdraw(id){
+  const arr = getWithdraws();
+  const idx = arr.findIndex(x=>x.id===id); if(idx<0) return alert('Not found');
+  const w = arr[idx];
+  arr[idx].status='rejected'; arr[idx].rejectedAt=now();
+  writeJSON(LS_WITHDRAWS, arr);
+  // refund
+  credit(w.user, w.amount, 'Refund after withdraw rejection');
+  alert('Withdraw rejected and amount refunded to user wallet.');
+  renderAdminWithdraws(); updateUI();
+}
+
+closeAdmin.addEventListener('click', ()=> adminModal.style.display='none');
+
+/* ========== Misc helpers ========== */
+function getCurrentEmail(){ return localStorage.getItem(LS_USER); }
+function setCurrentEmail(e){ if(e) localStorage.setItem(LS_USER,e); else localStorage.removeItem(LS_USER); updateUI(); }
+
+/* Initialize minimal demo data (only once) */
+(function seedDemo(){
+  if(!localStorage.getItem('holatube_seeded')){
+    // create admin user record (not auto logged in)
+    const admin = { name:'Admin', email:'admin@holatube.local', subscribedUntil:null, tier:null, createdAt:now(), isAdmin:true };
+    saveUser(admin);
+    // create demo user
+    const demo = { name:'Demo User', email:'demo@holatube.local', subscribedUntil:null, tier:null, createdAt:now() };
+    saveUser(demo);
+    writeJSON(LS_WALLET, { 'demo@holatube.local': 0, 'admin@holatube.local':0 });
+    localStorage.setItem('holatube_seeded','1');
+  }
+})();
+
+/* Update UI every time */
+updateUI();
+
+/* Extra small handlers */
+howItWorks.addEventListener('click', ()=> alert('1) Sign up/Login → 2) Subscribe via Instamojo (₹99 or ₹299) → 3) Generate affiliate link → 4) Share → 5) When sale happens, admin/webhook credits wallet (simulated here). Withdraw requires admin approval.'));
+btnUpload.addEventListener('click', ()=> alert('Upload feature is planned — requires backend to store media.'));
+</script>
 </body>
 </html>
